@@ -1,0 +1,107 @@
+﻿.background-container {
+    margin-top: 6vh;
+    position: relative;
+}
+
+#gradient-bg {
+    position: absolute;
+    background: #999999;
+    background-image: linear-gradient(#ffccaa 20%, #AFE9DD 20%, #AFE9DD 40%, #FFD5D5 40%, #FFD5D5 60%, #AACCFF 60%, #AACCFF 80%, #CCCCCC 80%);
+    margin: 0;
+    margin-top: 120px;
+    width: 100%;
+    height: 35%;
+    border-radius: 25px;
+    z-index: 1;
+}
+
+
+#myform-card {
+    width: fit-content;
+    height: fit-content;
+    padding: 25px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    left: 50%;
+    top: 67.5px;
+    /* margin-left: -250px;*/
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: -10px 0 25px -15px #ccc, 10px 0 25px -15px black;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+
+}
+
+    #myform-card form {
+        align-self: center;
+        padding: 0.5rem 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #myform-card .form-group {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+.form-group input {
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 1rem
+}
+
+    #myform-card:hover {
+        transform: scale(1.05);
+        box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+    }
+
+    #myform-card img {
+        width: 150px;
+        float: left;
+        border-radius: 5px;
+        margin-right: 20px;
+    }
+
+    #myform-card::before, #myform-card::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale3d(0, 0, 1);
+        transition: transform .3s ease-out 0s;
+        background: rgba(255, 255, 255, 0.1);
+        content: '';
+        pointer-events: none;
+    }
+
+    #myform-card::before {
+        transform-origin: left top;
+    }
+
+    #myform-card::after {
+        transform-origin: right bottom;
+    }
+
+    #myform-card:hover::before, #myform-card:hover::after, #myform-card:focus::before, #myform-card:focus::after {
+        transform: scale3d(1, 1, 1);
+    }
+
+
+    #myform-card h2 {
+        font-family: "Sedan", serif;
+        color: #333;
+        margin: 0 auto;
+        padding: 0;
+        font-size: 15pt;
+    }
+
+    #myform-card span {
+        font-family: "Sedan", serif;
+    }

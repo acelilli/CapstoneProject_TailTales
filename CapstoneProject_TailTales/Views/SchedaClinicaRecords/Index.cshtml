@@ -1,0 +1,63 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.SchedaClinicaRecords>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Libretto.NumMicrochip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataVisita)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diagnosi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Veterinario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Libretto.NumMicrochip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utenti.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataVisita)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diagnosi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veterinario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdRecordSC }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdRecordSC }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdRecordSC })
+        </td>
+    </tr>
+}
+
+</table>

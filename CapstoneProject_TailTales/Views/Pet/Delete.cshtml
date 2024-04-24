@@ -1,0 +1,92 @@
+﻿@model CapstoneProject_TailTales.Models.Pet
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Cancella Pet";
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center">Vuoi cancellare @Model.Nome? </h3>
+            <div class="form-group row">
+                <hr />
+                <div class="row">
+                    <div class=" col-md-6 border-0">
+                        <dl class="dl-horizontal">
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Utenti.Username)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Utenti.Username)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Tipo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Tipo)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Razza)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Razza)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Nome)
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class=" col-md-6 border-0">
+                        <dl class="dl-horizontal">
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Sesso)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Sesso)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.ImgProfilo)
+                            </dt>
+
+                            <dd>
+                                <div style="max-width: 200px; max-height:200px" class="object-fit-cover">
+                                    <img src="@Html.DisplayFor(model => model.ImgProfilo)" class="mb-2 " alt="Immagine del profilo di @Html.DisplayFor(model => model.Nome)" />
+                                </div>
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.DataNascita)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.DataNascita)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Cancella" class="btn bg-orange" /> |
+                        @Html.ActionLink("Torna indietro", "Index")
+                    </div>
+                }
+            </div>
+            </div>
+        </div>
+    </main>

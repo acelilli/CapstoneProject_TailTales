@@ -1,0 +1,272 @@
+﻿@model CapstoneProject_TailTales.Models.MyUserData
+
+@{
+    ViewBag.Title = "Home Page";
+    //ViewBag.ProssimiAppuntamenti = prossimiAppuntamenti;
+    //ViewBag.PassatiAppuntamenti = passatiAppuntamenti;
+}
+@Styles.Render("~/Content/PetCards.css")
+
+<main class="container-fluid px-0 pb-0">
+    <div class="row">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success text-center">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <!-- Prima sezione: Appuntamenti e Memo -->
+        <section class="col d-flex flex-column ms-3 my-2">
+            <!-- Appuntamenti -->
+            <div class="py-1 px-0">
+                <div class="transparent-lightorange rounded-2 p-3 mb-1" aria-labelledby="Appointments">
+                    <h3 class="sedan-regular fw-bold">Prossimi Appuntamenti</h3>
+                    <div id="prossimiAppuntamenti">
+                        <ul>
+                            @if (((List<(DateTime? DataAppuntamento, string Descrizione, string NomePet)>)ViewData["ProssimiAppuntamenti"]).Count == 0)
+                            {
+                                foreach (var pet in Model.MyPets)
+                                {
+                                    bool hasLibretto = (pet.Libretto != null && pet.Libretto.Any());
+                                    if (hasLibretto)
+                                    {
+                                        int librettoId = pet.Libretto.FirstOrDefault().IdLibretto;
+                                        <li>Aggiungi gli appuntamenti del tuo pet @pet.Nome!</li>
+                                    }
+                                    else
+                                    {
+                                        int idpet = pet.IdPet;
+                                        <li>Aggiungi il libretto sanitario per il tuo pet @pet.Nome! <a href="@Url.Action("Create", "Libretto", new { idPet_FK = idpet })" class="orange page-link fs-6">&#10140;</a></li>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var appuntamento in (List<(DateTime? DataAppuntamento, string Descrizione, string NomePet)>)ViewData["ProssimiAppuntamenti"])
+                                {
+                                    <li>@appuntamento.DataAppuntamento.Value.ToShortDateString() - @appuntamento.Descrizione (<b>@appuntamento.NomePet</b>)</li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                    <!--Tasto "mostra di più" per mostrare un numero maggiore di memo-->
+                    <div class="justify-content-center my-2">
+                        <button class="btn orange show-more-btn py-0" id="proxShowMore">Mostra di più</button>
+                    </div>
+                </div>
+                <!--Fine cointainer -->
+                <div class="transparent-lightblue rounded-2 p-3" aria-labelledby="Latest Appointment">
+                    <h3 class="sedan-regular fw-bold">Ultimi Appuntamenti</h3>
+                    <div id="ultimiAppuntamenti">
+                        <ul>
+                            @if (((List<(DateTime? DataAppuntamento, string Descrizione, string NomePet)>)ViewData["PassatiAppuntamenti"]).Count == 0)
+                            {
+                                foreach (var pet in Model.MyPets)
+                                {
+                                    bool hasLibretto = (pet.Libretto != null && pet.Libretto.Any());
+                                    if (hasLibretto)
+                                    {
+                                        int librettoId = pet.Libretto.FirstOrDefault().IdLibretto;
+                                        <li>Registra i passati appuntamenti per i vaccini tuo pet @pet.Nome!</li>
+                                        <li>Registra le passate visite mediche del tuo per @pet.Nome! </li>
+                                    }
+                                    else
+                                    {
+                                        int idpet = pet.IdPet;
+                                        <li>Aggiungi il libretto sanitario per il tuo pet @pet.Nome! <a href="@Url.Action("Create", "Libretto", new { idPet_FK = idpet })" class="lightblue page-link fs-6">&#10140;</a></li>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var appuntamento in (List<(DateTime? DataAppuntamento, string Descrizione, string NomePet)>)ViewData["PassatiAppuntamenti"])
+                                {
+                                    <li>@appuntamento.DataAppuntamento.Value.ToShortDateString() - @appuntamento.Descrizione (<b>@appuntamento.NomePet</b>);</li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <!--Tasto "mostra di più" per mostrare un numero maggiore di appuntamenti passati-->
+                    <div class="justify-content-center my-2">
+                        <button class="btn lightblue show-more-btn py-0" id="lastShowMore">Mostra di più</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Memo -->
+            <div class="transparent-lightpink rounded-2 p-3" aria-labelledby="gettingStartedTitle">
+                <h3 class="sedan-regular fw-bold">I miei memo</h3>
+                <!-- Vista dei memo -->
+                <div class="py-1 px-2 more-container" id="memoContainer">
+                    <form id="updateMemoForm" action="@Url.Action("UpdateMemo", "Home")" method="post">
+                        @foreach (var memo in Model.MyMemo)
+                        {
+                            <div class="form-check">
+                                <input type="hidden" name="memoId" value="@memo.IdMemo">
+                                <input type="hidden" name="completato" value="false">
+                                <input class="form-check-input" type="checkbox" value="@memo.IdMemo" @(memo.Completato ? "checked" : "")>
+                                <label class="form-check-label" for="memo_@memo.IdMemo">
+                                    @memo.Descrizione
+                                </label>
+                            </div>
+                        }
+                    </form>
+                </div>
+                <!--Tasto "mostra di più" per mostrare un numero maggiore di memo-->
+                <div class="justify-content-center my-0 ">
+                    <button class="btn pink show-more-btn py-0" id="memoShowMore">Mostra di più</button>
+                </div>
+                <!-- Aggiungi memo -->
+                <div class="bg-pink rounded-2 mt-0">
+                    <form action="@Url.Action("NewMemo", "Home")" method="post">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group p-1 px-2">
+                                    <label for="descrizioneMemo" class="form-label sedan-regular">Aggiungi un nuovo memo</label>
+                                    <div class="input-group container">
+                                        <div class="py-1 w-100">
+                                            <div class="row flex-nowrap align-content-center ">
+                                                <input type="text" class="form-control col" id="descrizioneMemo" name="descrizione" placeholder="Scrivi il tuo memo...">
+                                                <div class="col-auto">
+                                                    <button id="memoAddbtn" type="submit" class="btn rounded-3"><i class="bi bi-plus-lg p-0"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!---------------------Fine prima sezione-------------------->
+        <!-- Seconda sezione: Pets e Album -->
+        <section class="col d-flex flex-column ms-1 mx-3 my-2 me-4">
+            <!-- Pets -->
+            <div class="py-1 px-0">
+                <div class="transparent-lightgreen rounded-2 p-3">
+                    <h3 class="sedan-regular fw-bold">I miei Pets</h3>
+                    <div class="d-flex ps-1 pe-3">
+                        @foreach (var pet in Model.MyPets)
+                        {
+                            bool hasLibretto = (pet.Libretto != null && pet.Libretto.Any());
+                            var petId = pet.IdPet;
+                            int librettoId = 0;
+                            var libretto = pet.Libretto.FirstOrDefault();
+
+                            if (libretto != null)
+                            {
+                                librettoId = libretto.IdLibretto;
+                            }
+                            <div class="col-6 p-3 mx-1 transparent-lightgreen border border-secondary-subtle petcard">
+                                <div class="d-flex g-0 h-100">
+                                    <!-- IMAGE & Data -->
+                                    <div class="ms-0 me-0 pc-content py-0 px-0 w-100">
+                                        <!-- IMG + Pin -->
+                                        <div class="pc-img mx-0 h-100 p-1">
+                                            @if (pet.Sesso == "M")
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/blue_pin.svg" class="pin" alt="pin">
+                                            }
+                                            else
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/pink_pin.svg" class="pin" alt="pin">
+                                            }
+
+                                            <img src="@pet.ImgProfilo" class="ProPicPet mb-1" alt="Immagine del profilo di @pet.Nome">
+                                            <p class="d-flex justify-content-center sedan-regular">
+                                                @pet.Nome &nbsp;
+                                                @if (librettoId == 0)
+                                                {
+                                                    <!-- Bottone per i dettagli del pet se non ha il libretto -->
+                                                    <a href="@Url.Action("Index", "Pet")" class="green page-link fs-6">&#10140;</a>
+                                                }
+                                                else
+                                                {
+                                                    <!-- Bottone per i dettagli del libretto -->
+                                                    <a href="@Url.Action("Details", "Libretto", new { id = librettoId })" class="green page-link fs-6">&#10140;</a>
+                                                }
+                                            </p>
+                                        </div>
+                                        <!-- Data -->
+                                        <div class="col-md-6 ps-3 pe-0 py-0">
+                                            <fieldset class="pb-1 px-0 mb-1 w-100">
+                                                <legend class="col-form-label text-start fw-semibold sedan-regular py-0">Razza del @pet.Tipo</legend>
+                                                <p class="mb-1">@pet.Razza</p>
+                                                <legend class="col-form-label text-start fw-semibold sedan-regular py-0 w-100">Età</legend>
+                                                <span class="etaPet my-0 mb-1" data-nascita="@pet.DataNascita">12</span>
+                                                <legend class="col-form-label text-start sedan-regular fw-semibold py-0">Sesso</legend>
+                                                <p class="mb-1">@pet.Sesso</p>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Album -->
+            <div class="py-1 px-0">
+                <div class="transparent-lightgrey rounded-2 p-3" aria-labelledby="librariesTitle">
+                    <h3 class="mb-0 sedan-regular fw-bold">Il mio Album fotografico</h3>
+                    <div id="homealbum" class="row w-100 align-items-center">
+                        <div class="col-11 p-0">
+                            <div id="gallery">
+                                <table cellspacing="0" cellpadding="0" align="center">
+                                    <tr>
+                                        @if (Model.MyAlbum.Any())
+                                        {
+                                            foreach (var foto in Model.MyAlbum.Take(3))
+                                            {
+                                                <td>
+                                                    <div class="picinfo">
+                                                        @foto.DataRecord<br>
+                                                        <img src="@foto.ImgUrl" alt="Immagini dall'album fotografico">
+                                                    </div>
+                                                </td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <div class="picinfo">
+                                                    Aggiungi delle foto!<br />
+                                                    <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="picinfo">
+                                                    Aggiungi delle foto!<br />
+                                                    <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="picinfo">
+                                                    Aggiungi delle foto!<br />
+                                                    <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                </div>
+                                            </td>
+                                        }
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-1 px-1 align-content-center">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                int userId;
+                                string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
+                                bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
+                                <a href="@Url.Action("Index", "AlbumFoto", new { id = userId })" class="dark-grey page-link fs-1">&#10140;</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+@Scripts.Render("~/Scripts/HomeScripts.js")

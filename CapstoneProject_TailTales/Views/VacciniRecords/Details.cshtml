@@ -1,0 +1,106 @@
+﻿@model CapstoneProject_TailTales.Models.VacciniRecords
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VacciniRecords</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Libretto.NumMicrochip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libretto.NumMicrochip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VaccinoRabbia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VaccinoRabbia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPrevista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPrevista)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataEffettuato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEffettuato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VaccinoNLotto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VaccinoNLotto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scadenza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Scadenza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Richiamo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Richiamo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Veterinario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Veterinario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PuntoInoculo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PuntoInoculo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRecordVaccini }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

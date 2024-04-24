@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.AlbumFoto>
+@Styles.Render("~/Content/AlbumStyle.css")
+@{
+    ViewBag.Title = "Index";
+    int userId;
+    string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
+    bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
+}
+<main class="container-fluid px-0 pb-0">
+    <div class="d-flex align-items-center">
+        <h3 class="sedan-regular fw-semibold">Album fotografico</h3>
+        <div class="ms-4">
+            <a href="@Url.Action("Create", "AlbumFoto", new {id = userId})"><img src="https://alipg.altervista.org/TailTales/PeAdd-pic.svg" height="25" typeof="img/svg" alt="addpic"/></a>
+        </div>
+    </div>
+    <div class="row w-100 mt-1 gx-2">
+        @foreach (var item in Model.OrderByDescending(i => i.DataRecord))
+        {
+            <div class="col-md-3">
+                <div class="singlepic">
+                    <div class="d-flex justify-content-between">
+                        <p class="small dark-grey my-1 mt-0">
+                            @item.DataRecord da <span class="fw-bold">@item.Utenti.Username</span>
+                        </p>
+                        <p class="small  dark-grey my-1 mt-0"><a href="@Url.Action("Edit", "AlbumFoto", new {id = item.IdAlbum})">Modifica</a>
+                                                              <a href="@Url.Action("Delete", "AlbumFoto", new {id = item.IdAlbum})">Cancella</a></p>
+                    </div>
+                    <img src="@item.ImgUrl" alt="foto di @item.Utenti" />
+                    <p class="my-1 mx-2">@item.Descrizione</p>
+                </div>
+            </div>
+        }
+    </div>
+</main>
+<script>
+    //Unico script della pagina: generare un colore random (tra 4 nella palette del sito) che appare come bordo della foto all'hover
+    // FUNZIONE 1: 
+    //Definizione dei colori disponibili in un array
+    //Scelta di un indice casuale
+    //No parametri, ritorna il colore corrispondente all'indice casuale
+    function getRandomColor() {
+        var colors = ["#AACCFF", "#5DC1AE", "#FF924B", "#FF8383"]; 
+        var randomIndex = Math.floor(Math.random() * colors.length); 
+        return colors[randomIndex]; 
+    }
+
+    // FUNZIONE 2:
+    // Funzione per applicare il colore casuale come bordo al passaggio del mouse (add event listener)
+    // Toglie il colore casualmente generato ripristinando il bordo predefinito quando il mouse esce
+    function applyRandomBorderColor(element) {
+        element.addEventListener("mouseover", function () {
+            element.style.borderColor = getRandomColor();
+        });
+        element.addEventListener("mouseout", function () {
+            element.style.borderColor = ""; 
+        });
+    }
+
+    // FUNZIONE 3:
+    // Applica il colore casuale a tutte le card con la classe .singlepic
+    var cards = document.querySelectorAll('.singlepic');
+    cards.forEach(function (card) {
+        applyRandomBorderColor(card);
+    });
+</script>

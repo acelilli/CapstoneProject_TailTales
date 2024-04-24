@@ -1,0 +1,385 @@
+﻿@model CapstoneProject_TailTales.Models.Utenti
+
+@{
+    ViewBag.Title = "Dettagli Utente";
+    var roles = ViewData["Ruoli"] as List<CapstoneProject_TailTales.Models.Ruoli>;
+    int userId;
+    string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
+    bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
+    var userPets = ViewBag.UserPets as List<CapstoneProject_TailTales.Models.Pet>;
+    /**/
+    var richiesteInSospeso = ViewBag.RichiesteInSospeso as List<CapstoneProject_TailTales.Models.RichiestaContatto>;
+    var utentiRichiedenti = ViewBag.UtentiRichiedenti as List<CapstoneProject_TailTales.Models.Utenti>;
+    var utentiRichiesti = ViewBag.UtentiRichiesti as List<CapstoneProject_TailTales.Models.Utenti>;
+    /**/
+    var amiciUtente = ViewBag.AmiciUtente as List<CapstoneProject_TailTales.Models.AmiciziaUtenti>;
+    var amiciRichiedenti = ViewBag.AmiciRichiedenti as List<CapstoneProject_TailTales.Models.Utenti>;
+    var amiciRichiesti = ViewBag.AmiciRichiesti as List<CapstoneProject_TailTales.Models.Utenti>;
+    /**/
+    var albumpics = ViewBag.AlbumUtente as List<CapstoneProject_TailTales.Models.AlbumFoto>;
+}
+@Styles.Render("~/Content/PetCards.css")
+
+<main class="container-fluid px-0 pb-0">
+    @if (userId == Model.IdUtente)
+    {
+        <div class="row">
+            <!-- Prima col: Info & Dati essenziali -->
+            <section class="col d-flex flex-column ms-3 my-3">
+                <div class="transparent-lightorange rounded-2 p-2 mb-1" aria-labelledby="AccountData">
+                    <div class="bg-orange p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                        <h5 class="sedan-regular my-0">I miei dati profilo</h5>
+                        <div class="form-group">
+                            @if (userId == Model.IdUtente)
+                            {
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="@Url.Action("Edit", "Utenti", new { id = userId })" class="btn bg-green rounded-2"><i class="bi bi-pencil-square"></i></a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="d-flex my-3 mx-3 px-3">
+                        <div class="col-md-6">
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.IdRuolo_FK, "Ruolo", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Ruoli.Ruolo, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-10">
+                                @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Username, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-10">
+                                @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Email, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-10">
+                                @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    <input type="password" value="********" class="form-control" disabled="disabled" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Seconda col-->
+                        <div class="col-md-6 ms-5">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Nome, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Cognome, "Cognome", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Cognome, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Regione, "Regione", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Regione, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Provincia, "Provincia", htmlAttributes: new { @class = "control-label fw-bold" })
+                                <div>
+                                    @Html.DisplayFor(model => model.Provincia, new { @class = "form-control", disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="form-group ms-2">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("Index", "Home")" class="btn bg-orange rounded-2"><i class="bi bi-house-door-fill"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--Fine row-->
+            </section>
+            <!--Sezione 1.2 Amici + richieste-->
+            <section class="col d-flex flex-column ms-1 mx-3 my-3 me-4">
+                <div class="transparent-lightpink rounded-2 p-2 mb-1" aria-labelledby="Contacts">
+                    <div class="bg-pink p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                        <h5 class="sedan-regular my-0">I miei contatti</h5>
+                        <p class="text-white fs-4 p-0 m-0"><i class="bi bi-chat-square-heart-fill"></i></p>
+                    </div>
+                    <div class="mx-3">
+                        <ul class="list-unstyled">
+                            @foreach (var amicizia in amiciUtente)
+                            {
+                                var amicoRichiedenteUsername = amiciRichiedenti.FirstOrDefault(u => u.IdUtente == amicizia.IdUtenteRichiedente)?.Username;
+                                var amicoRichiestoUsername = amiciRichiesti.FirstOrDefault(u => u.IdUtente == amicizia.IdUtenteRichiesto)?.Username;
+
+                                <li>
+                                    <b> @(amicoRichiedenteUsername ?? amicizia.IdUtenteRichiedente.ToString()) </b> e <b> @(amicoRichiestoUsername ?? amicizia.IdUtenteRichiesto.ToString()) </b> sono amici.
+                                </li>
+                            }
+                            @if (!amiciUtente.Any())
+                            {
+                                <li>Non hai ancora aggiunto degli amici!</li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+                <!--Richieste di contatto-->
+                <div class="transparent-lightgrey rounded-2 p-2 mb-1" aria-labelledby="PendingRequests">
+                    <div class="bg-dark-grey p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                        <h5 class="sedan-regular my-0">Le mie richieste in attesa...</h5>
+                        <p class="text-white fs-4 p-0 m-0"><i class="bi bi-hourglass-top"></i></p>
+                    </div>
+                    <div>
+                        <ul>
+                            @foreach (var richiesta in richiesteInSospeso)
+                            {
+                                var richiedenteUsername = utentiRichiedenti.FirstOrDefault(u => u.IdUtente == richiesta.IdUtenteRichiedente)?.Username;
+                                var richiestoUsername = utentiRichiesti.FirstOrDefault(u => u.IdUtente == richiesta.IdUtenteRichiesto)?.Username;
+
+                                <li>
+                                    @richiesta.DataRichiesta -
+                                    Richiesta da <b> @(richiedenteUsername ?? richiesta.IdUtenteRichiedente.ToString()) </b> per <b> @(richiestoUsername ?? richiesta.IdUtenteRichiesto.ToString())</b>.
+                                </li>
+                            }
+                            @if (!richiesteInSospeso.Any())
+                            {
+                                <li>Non hai richieste di contatto in sospeso!</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+            }
+            else
+            {
+            <div class="row">
+                <!--PRIMA SEZIONE: Dati utente e contatti -->
+                <section class="col d-flex flex-column ms-3 my-3">
+                    <!-- Dati utente -->
+                    <div class="transparent-lightorange rounded-2 p-2 mb-1" aria-labelledby="AccountData">
+                        <div class="bg-orange p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                            <h5 class="sedan-regular my-0">@Model.Username</h5>
+                            @if (!amiciUtente.Any(f => f.IdUtenteRichiesto == userId && f.IdUtenteRichiedente == Model.IdUtente || f.IdUtenteRichiedente == userId && f.IdUtenteRichiesto == Model.IdUtente))
+                            {
+                                <div class=" me-1">
+                                    <form action="@Url.Action("Create", "RichiestaContatto", new { id = Model.IdUtente })" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="idUtenteRichiesto" value="@Model.IdUtente" />
+                                        <button type="submit" class="border-0 shadow-lg p-0 justify-content-center rounded-3 p-1">
+                                            <img src="https://alipg.altervista.org/TailTales/add_friend.svg" alt="AddFriend" height="25" type="image/svg+xml" />
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                        </div>
+                        <div class="d-flex my-3 mx-3 px-3">
+                            <div class="col-md-6">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.IdRuolo_FK, "Ruolo", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Ruoli.Ruolo, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-10">
+                                    @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Username, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Nome, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 ms-5">
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Cognome, "Cognome", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Cognome, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Regione, "Regione", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Regione, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Provincia, "Provincia", htmlAttributes: new { @class = "control-label fw-bold" })
+                                    <div>
+                                        @Html.DisplayFor(model => model.Provincia, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contatti -->
+                    <div class="transparent-lightpink rounded-2 p-2 mb-1 mt-1" aria-labelledby="Contacts">
+                        <div class="bg-pink p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                            <h5 class="sedan-regular my-0">Contatti di @Model.Username</h5>
+                            <p class="text-white fs-4 p-0 m-0"><i class="bi bi-chat-square-heart-fill"></i></p>
+                        </div>
+                        <div class="my-2 mx-3">
+                            <ul class="list-unstyled">
+                                @foreach (var amicizia in amiciUtente)
+                                {
+                                    var amicoRichiedenteUsername = amiciRichiedenti.FirstOrDefault(u => u.IdUtente == amicizia.IdUtenteRichiedente)?.Username;
+                                    var amicoRichiestoUsername = amiciRichiesti.FirstOrDefault(u => u.IdUtente == amicizia.IdUtenteRichiesto)?.Username;
+
+                                    <li>
+                                        <b> @(amicoRichiedenteUsername ?? amicizia.IdUtenteRichiedente.ToString()) </b> e <b> @(amicoRichiestoUsername ?? amicizia.IdUtenteRichiesto.ToString()) </b> sono amici.
+                                    </li>
+                                }
+                                @if (!amiciUtente.Any())
+                                {
+                                    <li>Non hai ancora aggiunto degli amici!</li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <!--Seconda Sezione: Pets utente + Album utente-->
+                <section class="col d-flex flex-column ms-1 mx-3 my-3 me-4">
+                    <!--Seconda col: Pets Utente -->
+                    <div class="transparent-lightgreen rounded-2 p-2 mb-1" aria-labelledby="EssentialData">
+                        <div class="bg-green p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                            <h5 class="sedan-regular my-0">Pets di @Model.Username</h5>
+                        </div>
+                        <div class="d-flex ps-0 px-3">
+                            @foreach (var pet in userPets)
+                            {
+                                bool hasLibretto = (pet.Libretto != null && pet.Libretto.Any());
+                                var petId = pet.IdPet;
+                                int librettoId = 0;
+                                var libretto = pet.Libretto.FirstOrDefault();
+
+                                if (libretto != null)
+                                {
+                                    librettoId = libretto.IdLibretto;
+                                }
+                                <div class="col-md-6 p-2 mx-1 transparent-lightgreen border border-secondary-subtle petcard">
+                                    <div class="d-flex g-0 h-100">
+                                        <!-- IMAGE & Data -->
+                                        <div class="ms-0 me-0 pc-content py-0 px-0">
+                                            <!-- IMG + Pin -->
+                                            <div class="col-md-5 pc-img mx-0 h-100 p-1">
+                                                @if (pet.Sesso == "M")
+                                                {
+                                                    <img src="https://alipg.altervista.org/TailTales/blue_pin.svg" class="pin" alt="pin">
+                                                }
+                                                else
+                                                {
+                                                    <img src="https://alipg.altervista.org/TailTales/pink_pin.svg" class="pin" alt="pin">
+                                                }
+
+                                                <img src="@pet.ImgProfilo" class="ProPicPet mb-1" alt="Immagine del profilo di @pet.Nome">
+                                                <p class="d-flex justify-content-center sedan-regular">
+                                                    @pet.Nome &nbsp;
+                                                    @if (User.IsInRole("veterinario"))
+                                                    {
+                                                        <!-- Bottone per i dettagli del libretto -->
+                                                        <a href="@Url.Action("Details", "Libretto", new { id = librettoId })" class="green page-link fs-6">&#10140;</a>
+                                                    }
+                                                </p>
+                                            </div>
+                                            <!-- Data -->
+                                            <div class="col-md-6 ps-1 pe-0 py-0">
+                                                <fieldset class="py-1 px-0 w-100">
+                                                    <legend class="col-form-label text-start fw-semibold sedan-regular py-0">Razza del @pet.Tipo</legend>
+                                                    <p class="mb-0">@pet.Razza</p>
+                                                    <legend class="col-form-label text-start fw-semibold sedan-regular py-0 w-100">Età</legend>
+                                                    <span class="etaPet mb-0" data-nascita="@pet.DataNascita">12</span>
+                                                    <legend class="col-form-label text-start sedan-regular fw-semibold py-0">Sesso</legend>
+                                                    <p class="mb-0">@pet.Sesso</p>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @if (!userPets.Any())
+                            {
+                                <p>L'utente non ha ancora aggiunto dei pets.</p>
+                            }
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Album utente -->
+                    <div class="transparent-lightgrey rounded-2 p-2 mb-1" aria-labelledby="PendingRequests">
+                        <div class="bg-dark-grey p-2 rounded-2 my-1 mx-1 px-2 d-flex justify-content-between align-content-center align-items-center">
+                            <h5 class="sedan-regular my-0">Album di @Model.Username</h5>
+                        </div>
+                        <div id="homealbum" class="row w-100 align-items-center">
+                            <div class="col-11 p-0">
+                                <div id="gallery">
+                                    <table cellspacing="0" cellpadding="0" align="center">
+                                        <tr>
+                                            @if (albumpics != null && albumpics.Any())
+                                            {
+                                                foreach (var foto in albumpics.Take(3))
+                                                {
+                                                    <td>
+                                                        <div class="picinfo">
+                                                            @foto.DataRecord<br>
+                                                            <img src="@foto.ImgUrl" alt="Immagini dall'album fotografico">
+                                                        </div>
+                                                    </td>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <div class="picinfo">
+                                                        Aggiungi delle foto!<br />
+                                                        <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="picinfo">
+                                                        Aggiungi delle foto!<br />
+                                                        <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="picinfo">
+                                                        Aggiungi delle foto!<br />
+                                                        <img src="https://alipg.altervista.org/TailTales/doggo.png" alt="placeholder album fotografico" />
+                                                    </div>
+                                                </td>
+                                            }
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-1 px-1 align-content-center">
+                                <a href="@Url.Action("Index", "AlbumFoto", new { id = Model.IdUtente })" class="dark-grey page-link fs-1">&#10140;</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+</div>
+            }
+</main>
+@Scripts.Render("~/Scripts/HomeScripts.js")

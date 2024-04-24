@@ -1,0 +1,148 @@
+﻿@model CapstoneProject_TailTales.Models.VacciniRecords
+@Styles.Render("~/Content/FormStyle.css")
+
+@{
+    ViewBag.Title = "Aggiungi nuovo Vaccino";
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center mt-1">Aggiungi nuovo vaccino:</h3>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-6 border-0">
+                        <div class="form-horizontal col-md-12">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger m-0 p-0" })
+                            <div class="form-group col-md-12  m-0 p-0">
+                                @Html.HiddenFor(model => model.IdLibretto_FK, new { @class = "text-danger m-0 p-0" })
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.VaccinoRabbia, "Vaccino Rabbia", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    <div class="checkbox mb-1">
+                                        @Html.EditorFor(model => model.VaccinoRabbia, new { @class = "m-0 p-0" })
+                                        @Html.ValidationMessageFor(model => model.VaccinoRabbia, "", new { @class = "text-danger m-0" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.DataPrevista, "Previsto per la data", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.DataPrevista, new { htmlAttributes = new { @class = "form-control m-0", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DataPrevista, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.DataEffettuato, "Effettuato in data", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.DataEffettuato, new { htmlAttributes = new { @class = "form-control m-0", type = "date", @id = "DataEffettuata" } })
+                                    @Html.ValidationMessageFor(model => model.DataEffettuato, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.VaccinoNLotto, "Vaccino N. Lotto", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.VaccinoNLotto, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.VaccinoNLotto, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Scadenza, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Scadenza, new { htmlAttributes = new { @class = "form-control m-0", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Scadenza, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div>
+                                <input type="submit" value="Save" class="btn bg-lightblue" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 border-0">
+                        <div class="form-horizontal">
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.PuntoInoculo, "Descrizione", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.PuntoInoculo, new { htmlAttributes = new { @class = "form-control m-0", @placeholder = "Tipo di vaccino, punto di inoculo..." } })
+                                    @Html.ValidationMessageFor(model => model.PuntoInoculo, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Richiamo, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @{
+                                        var richiamoOptions = new[]
+                                        {
+                new SelectListItem { Value = "true", Text = "Il vaccino è un richiamo programmato" },
+                new SelectListItem { Value = "false", Text = "Il vaccino ha un richiamo programmato" },
+                new SelectListItem { Value = "", Text = "Il vaccino non ha richiami" }
+            };
+                                    }
+                                    @Html.DropDownListFor(model => model.Richiamo, richiamoOptions, "Seleziona uno stato", new { @class = "form-control m-0" })
+                                    @Html.ValidationMessageFor(model => model.Richiamo, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.IdUtente_FK, "Veterinario registrato", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.DropDownList("IdUtente_FK", ViewData["VeterinariList"] as SelectList, "Seleziona un veterinario", new { @class = "form-control m-0" })
+                                    @Html.ValidationMessageFor(model => model.IdUtente_FK, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Veterinario, "Veterinario non registrato", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Veterinario, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.Veterinario, "", new { @class = "text-danger m-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Prezzo, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Prezzo, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.Prezzo, "", new { @class = "text-danger m-0 p-0" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div>
+                                    @Html.ActionLink("Indietro", "Details", "Libretto", new { id = Model.IdLibretto_FK }, new { @class = "btn bg-dark-grey" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            } 
+        </div> 
+    </div> 
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("DataEffettuata").value = today;
+        });
+    </script>
+}

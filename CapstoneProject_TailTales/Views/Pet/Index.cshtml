@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.Pet>
+
+@{
+    ViewBag.Title = "I miei Pets";
+    var libretti = ViewBag.Libretti as List<Libretto>;
+    var amiciPet = ViewBag.AmiciPet as List<AmiciziaPet>;
+    var amiciPetRichiedenti = ViewBag.AmiciPetRichiedenti as List<Pet>;
+    var amiciPetRichiesti = ViewBag.AmiciPetRichiesti as List<Pet>;
+
+}
+@Styles.Render("~/Content/PetCards.css")
+@using CapstoneProject_TailTales.Models
+
+<main class="container-fluid p-3 ">
+    <section class="row" aria-labelledby="AllPetsPage">
+        <h2 class="sedan-regular fw-bold">I tuoi Pets</h2>
+    </section>
+    <section class="d-flex flex-wrap p-0">
+        @foreach (var pet in Model)
+        {
+            bool hasLibretto = libretti.Any(l => l.IdPet_FK == pet.IdPet);
+
+            <div class="card transparent-lightgreen m-1 p-3 rounded-3 col-md-12 border-0">
+                <div class="row no-gutters">
+                    <div class="py-3 pt-2 ps-3 col-md-3 h-100 object-fit-cover" style="max-width: 300px; max-height: 300px">
+                        <img src="@pet.ImgProfilo" class="img-fluid w-100 h-100 rounded-3" style="object-fit: cover; object-position: center;" alt="Immagine profilo di @pet.Nome">
+                    </div>
+                    <div class="col">
+                        <div class="card-block ps-0 pt-2">
+                            <div class="bg-white d-flex justify-content- align-items-center px-2 py-1 rounded-2 w-100">
+                                <h4 class="card-title sedan-regular mt-2 fw-bold">@pet.Nome</h4>
+                                <div class="w-100 d-flex justify-content-end">
+                                    <!-- Bottone per i dettagli del libretto -->
+                                    @if (hasLibretto)
+                                    {
+                                        var librettoId = libretti.FirstOrDefault(l => l.IdPet_FK == pet.IdPet)?.IdLibretto;
+                                        if (librettoId != null)
+                                        {
+                                            <a href="@Url.Action("Details", "Libretto", new { id = librettoId })" class="btn bg-dark-grey border-white rounded mx-1"><i class="bi bi-journals"></i></a>
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        <a href="@Url.Action("Create", "Libretto", new { IdPet_FK = pet.IdPet })" class="btn bg-pink  border-white rounded mx-1"><i class="bi bi-journal-plus"></i></a>
+                                    }
+                                    <a href="@Url.Action("Edit", "Pet", new { id = pet.IdPet })" class="btn bg-lightblue  border-white rounded mx-1"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="@Url.Action("Delete", "Pet", new { id = pet.IdPet })" class="btn bg-orange  border-white rounded mx-1">
+                                        <i class="bi bi-x-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mx-0 w-100 py-2">
+                                <div class="col-md-6 d-flex">
+                                    <fieldset class="py-1 pb-2 px-2 w-100 align-items-start d-flex flex-md-column">
+                                        <label class="text-start fw-semibold sedan-regular">@pet.Tipo</label>
+                                        <p class="mt-1 mb-1">@pet.Razza</p>
+                                        <label class="text-start fw-semibold sedan-regular w-100">Età</label>
+                                        <p class="mt-1 mb-1"><span class="etaPet mb-0" data-nascita="@pet.DataNascita">12</span> (@pet.DataNascita)</p>
+                                        <label class="text-start sedan-regular fw-semibold">Sesso</label>
+                                        <p class="mt-1 mb-1">@pet.Sesso</p>
+                                    </fieldset>
+                                    @if (hasLibretto)
+                                    {
+                                        var librettoPet = libretti.FirstOrDefault(l => l.IdPet_FK == pet.IdPet);
+                                        if (librettoPet != null)
+                                        {
+                                            <fieldset class=" py-1 pb-2 px-2 pe-3 w-100 align-items-start d-flex flex-md-column">
+                                                <label class="text-start fw-semibold sedan-regular">Num. Microchip</label>
+                                                <p class="mt-1 mb-1">@librettoPet.NumMicrochip</p>
+                                                <label class="text-start fw-semibold sedan-regular w-100">Num. Enci</label>
+                                                @if (librettoPet.NumEnci != null)
+                                                {
+                                                    <p class="mt-1 mb-1">@librettoPet.NumEnci</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>Non è stato inserito un numero enci</p>
+                                                }
+                                                <label class="text-start sedan-regular fw-semibold">Provenienza</label>
+                                                @if (librettoPet.Provenienza != null)
+                                                {
+                                                    <p class="mt-1 mb-1">@librettoPet.Provenienza</p>
+                                                }
+                                                else
+                                                {
+                                                    <p>//</p>
+                                                }
+                                            </fieldset>
+                                        }
+                                    } else
+                {
+                    <p class="py-1 pb-2  px-2 pe-3 w-100 align-items-start d-flex flex-md-column">Non è stato ancora inserito alcun libretto! Per visualizzare più dati del tuo pet, inserisci un nuovo libretto.</p>
+                }
+
+                                </div>
+                            <!-- Contatti del pet -->
+                                <div class="col-md-6 bg-green p-2 rounded-2 me-1">
+                                    <ul class="list-unstyled text-center">
+                                        @foreach (var amicizia in amiciPet.Where(a => a.IdPetRichiedente == pet.IdPet || a.IdPetRichiesto == pet.IdPet))
+                                        {
+                                            var petRichiedenteNome = amiciPetRichiedenti.FirstOrDefault(p => p.IdPet == amicizia.IdPetRichiedente)?.Nome;
+                                            var petRichiestoNome = amiciPetRichiesti.FirstOrDefault(p => p.IdPet == amicizia.IdPetRichiesto)?.Nome;
+
+                                            <li>
+                                                <b> @(petRichiedenteNome ?? amicizia.IdPetRichiedente.ToString())</b> e <b>@(petRichiestoNome ?? amicizia.IdPetRichiesto.ToString())</b> sono amici.
+                                            </li>
+                                        }
+                                        @if (!amiciPet.Where(a => a.IdPetRichiedente == pet.IdPet || a.IdPetRichiesto == pet.IdPet).Any())
+                                        {
+                                            <li>Non ci sono ancora pet collegati al tuo!</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        } <!-- Chiusura del ciclo foreach -->
+    </section>
+    </main>
+@Scripts.Render("~/Scripts/HomeScripts.js")

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.VacciniRecords>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Libretto.NumMicrochip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VaccinoRabbia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrevista)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEffettuato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VaccinoNLotto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Scadenza)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Richiamo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Veterinario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PuntoInoculo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Libretto.NumMicrochip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utenti.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VaccinoRabbia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPrevista)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEffettuato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VaccinoNLotto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Scadenza)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Richiamo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Veterinario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PuntoInoculo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdRecordVaccini }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdRecordVaccini }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdRecordVaccini })
+        </td>
+    </tr>
+}
+
+</table>

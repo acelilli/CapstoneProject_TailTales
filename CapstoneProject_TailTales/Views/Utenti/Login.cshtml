@@ -1,0 +1,43 @@
+﻿@model CapstoneProject_TailTales.Models.Utenti
+@Styles.Render("~/Content/FormStyle.css")
+
+@{
+    ViewBag.Title = "Login";
+}
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h1 class="sedan-regular">Benvenut* in Tail Tales!</h1>
+            <h2 class="mt-2 fw-bold">Login</h2>
+
+            <form action="@Url.Action("Login", "Utenti")" method="post" class="align-items-center">
+                @Html.ValidationSummary(true)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Username)
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Username" })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+
+                
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                <div class="d-flex flex-column align-items-center my-0">
+
+    <div class="form-group">
+        <button type="submit" class="btn bg-lightblue my-2">Entra</button>
+        <a href="@Url.Action("Create", "Utenti")" class="btn bg-green my-2 my-sm-0">Registrati</a>
+    </div>
+</div>
+            </form>
+        
+            <div class="text-danger">
+                @ViewBag.AuthError
+            </div>
+        </div>
+    </div>
+</main>

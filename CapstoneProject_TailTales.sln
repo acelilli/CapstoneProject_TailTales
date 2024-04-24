@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapstoneProject_TailTales", "CapstoneProject_TailTales\CapstoneProject_TailTales.csproj", "{AEFFF591-AA49-4DC6-BC6D-691A5E665E9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEFFF591-AA49-4DC6-BC6D-691A5E665E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFFF591-AA49-4DC6-BC6D-691A5E665E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFFF591-AA49-4DC6-BC6D-691A5E665E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFFF591-AA49-4DC6-BC6D-691A5E665E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8704482-27E2-4F56-B66F-308270A26F27}
+	EndGlobalSection
+EndGlobal

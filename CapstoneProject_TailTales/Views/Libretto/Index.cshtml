@@ -1,0 +1,69 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.Libretto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pet.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumMicrochip)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proprietario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Indirizzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Provenienza)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumEnci)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sterilizzato)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pet.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumMicrochip)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proprietario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Indirizzo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Provenienza)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumEnci)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sterilizzato)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdLibretto }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdLibretto }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdLibretto })
+        </td>
+    </tr>
+}
+
+</table>

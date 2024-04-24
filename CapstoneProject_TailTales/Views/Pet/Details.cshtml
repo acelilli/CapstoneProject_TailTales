@@ -1,0 +1,74 @@
+﻿@model CapstoneProject_TailTales.Models.Pet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Razza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Razza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sesso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sesso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImgProfilo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImgProfilo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataNascita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataNascita)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPet }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

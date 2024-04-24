@@ -1,0 +1,1435 @@
+[
+  {
+    "nome": "Meticcio",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Affenpinscher",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Airedale Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Akita",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Akita Americano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Alano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Alaskan Malamute",
+    "specie": "Cane"
+  },
+  {
+    "nome": "American Cocker Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "American Staffordshire Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "American Water Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Anglo-Francais de Petite Venerie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Ariégeois",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Australian Shepherd",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Australian Silky Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Australian Stumpy Tail Cattle Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Barbet",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Barbone",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Basset Artèsien Normand",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Basset Bleau de Gascogne",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Basset Hound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bassetto delle Alpi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bassetto Fulvo della Bretagna",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bassotto Tedesco",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bassotto delle Alpi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Beagle",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Beagle Harrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bearded Collie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bedlington Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bernese Mountain Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bichon Frise",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Billy",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bobtail",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bolognese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Border Collie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Border Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Borzoi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Boston Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bovaro delle Ardenne",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bovaro dell'Appenzell",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bovaro dell'Entlebuch",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bovaro delle Fiandre",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Boxer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Boykin Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco d'Auvergne",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco del Bourbonnais",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco Italiano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco Portoghese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco Saint Germain",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco Slovacco a Pelo Duro",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bracco Ungherese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Braque Francais Pyrenees-type",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Briard",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Briquet Griffon Vendéen",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Broholmer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bulldog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bulldog Francese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Bullmastiff",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cairn Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cavalier King Charles Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Chesapeake Bay Retriever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Chihuahua",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Chinese Shar-Pei",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Chinook",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Chow Chow",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cirneco dell'Etna",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Clumber Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cocker Spaniel Inglese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Collie Smooth",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Coton de Tulèar",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Curly Coated Retriever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Orso della Carelia",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Australiano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Bergamasco",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Catalano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Croato",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da pastore di Karst",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore di Piccardia",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane di Pastore di Vallée",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Scozzese a Pelo lungo",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Renne della Lapponia",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da fattoria Danese-Svedese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane Lupo Cecoslovacco",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane Lupo di Saarloos",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane Mastino di Maiorca",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane dei Faraoni",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane dell'Atlas",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane di Castro Laboreiro",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore dei Pirenei",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Maremmano-Abbruzzese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Olandese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Cane da Pastore Romeno di Mioritza",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Dalmata",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Damdoe Dinmont Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Deerhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Deutscher Jagdterrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Dogo Argentino",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Dogo Canario",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Drever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Epagneul Bleu de Picardie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Epagneul Breton",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Epagneul de Pont-Audemer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Epagneul Nano Continentale",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Eurasier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Field Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Fila Portoghese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Flat Coated Retriever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Fox Terrier a pelo liscio",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Fox Terrier a pelo ruvido",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Foxhound Americano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Gascon Saintongeois",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Golden Retriever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Anglo-Francais Blanc et Noir",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Anglo-Francais Blanc et Orange",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Anglo-Francais Tricolore",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Basset Griffon Vendèen",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Bleau de Gascogne",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grand Griffon Vendéen",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grande Bovaro Svizzero",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Grayhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Griffone a pelo duro",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Griffone Belga",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Griffone di Bruxelles",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Harrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Hokkaido",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Hovawart",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Irish Glen of Imaal Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Irish Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Irish Water Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Irish Wolfhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Jack Russel Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Jamthund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Japanese Chin",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Japanese Spitz",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Japanese Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kai Ken",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kangal",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Karelian Bear Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Keeshond",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kerry Blue Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "King Charles Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kishu",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Komondor",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kooikerhondje",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Korean Jindo Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kromfohrlander",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Kuvasz",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lagotto Romagnolo",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lakeland Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lancashire Heeler",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Landseer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lapphund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Leonberger",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lhasa Apso",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Longhaired Whippet",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Lowchen",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Maltese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Manchester Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Maremma Sheepdog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Mastiff",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Mexican Hairless",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Miniature Bull Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Miniature Pinscher",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Miniature Schnauzer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norfolk Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norsk Lundehund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norwegian Buhund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norwegian Elkhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norwegian Lundehund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Norwich Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Nova Scotia Duck Tolling Retriever",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Old Danish Pointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Otterhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Papillon",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Parson Russel Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pekingese",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pembroke Welsh Corgi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Perro de Presa Canario",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Peruvian Hairless Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Petit Basset Griffon Vendeen",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pharaoh Hound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Plott Hound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Polish Lowland Sheepdog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pomeranian",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Portuguese Podengo",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Portuguese Podengo Pequeno",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Portuguese Pointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Portuguese Sheepdog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Portuguese Water Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pudelpointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pug",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Puli",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pumi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pyrenean Mastiff",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Pyrenean Shepherd",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Rat Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Redbone Coonhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Rhodesian Ridgeback",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Rottweiler",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Rough Collie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Russian Black Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Russian Toy",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Russian Tsvetnaya Bolonka",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Russkiy Toy",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Saarloos Wolfdog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Saint Bernard",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Saluki",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Samoyed",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Schapendoes",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Schipperke",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Scottish Deerhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Scottish Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Sealyham Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Segugio Italiano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Shetland Sheepdog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Shiba Inu",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Shih Tzu",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Shikoku",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Siberian Husky",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Silky Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Skye Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Sloughi",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Slovak Cuvac",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Slovakian Rough-haired Pointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Small Munsterlander Pointer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Smooth Collie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Soft Coated Wheaten Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Spanish Mastiff",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Spanish Water Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Spinone Italiano",
+    "specie": "Cane"
+  },
+  {
+    "nome": "St. Bernard",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Stabyhoun",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Staffordshire Bull Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Standard Schnauzer",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Stephens Cur",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Swedish Lapphund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Swedish Vallhund",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Taiwan Dog",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Teddy Roosevelt Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Thai Ridgeback",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Tibetan Mastiff",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Tibetan Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Tibetan Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Tosa",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Toy Fox Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Transylvanian Hound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Treeing Cur",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Treeing Walker Coonhound",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Vizsla",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Weimaraner",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Welsh Springer Spaniel",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Welsh Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "West Highland White Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Wetterhoun",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Whippet",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Wire Fox Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Wirehaired Pointing Griffon",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Wirehaired Vizsla",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Working Kelpie",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Xoloitzcuintli",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Yakutian Laika",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Yorkshire Terrier",
+    "specie": "Cane"
+  },
+  {
+    "nome": "Meticcio",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Abissino",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "American Bobtail",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "American Curl",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "American Shorthair (Gatto americano a pelo corto)",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "American Wirehair (Gatto americano a pelo duro)",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Australian Mist",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Balinese",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Bengala",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Birmano",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Bombay",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Brazilian Shorthair",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "British Longhair",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "British Shorthair",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Burmese",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Burmilla",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "California Spangled",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Chartreux",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Chausie",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Cornish Rex",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Cymric",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Devon Rex",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Dragon Li (Li Hua)",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Dwelf",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Egyptian Mau",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "European Shorthair",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Exotic Shorthair",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Foldex",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "German Rex",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Havana Brown",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Highlander",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Himalayano",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Japanese Bobtail",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Javanese",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Khao Manee",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Korat",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Kurilian Bobtail",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "LaPerm",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Maine Coon",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Manx",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Mau egiziano",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Munchkin",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Nebelung",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Neva Masquerade",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Norvegese delle Foreste",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Ocicat",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Ojos Azules",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Oriental",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Persiano",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Peterbald",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Pixie-bob",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Ragdoll",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Rex del Devon",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Russian Blue",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Sagrado di Birmania",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Savannah",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Scottish Fold",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Selkirk Rex",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Serengeti",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Siberiano",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Singapura",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Snowshoe",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Sokoke",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Somalo",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Sphynx",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Thai",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Tiffany",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Tonkinese",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Toyger",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Van Turco",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "York Chocolate",
+    "specie": "Gatto"
+  },
+  {
+    "nome": "Porcellino d'india",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Porcellino d'India Abissino",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Porcellino d'India Americano",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Porcellino d'India Crestato",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Porcellino d'India Peruviano",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Porcellino d'India Skinny",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cincillà",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cavia",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cavia Abissina",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cavia Americana",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cavia Peruviana",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Cavia Skinny",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Criceto",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Criceto Dorato",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Criceto Russo",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Gerbillo",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Minighiro africano",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Scoiattolo",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Scoiattolo Grigio",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Scoiattolo Rosso",
+    "specie": "Roditore"
+  },
+  {
+    "nome": "Scoiattolo Volante",
+    "specie": "Roditore"
+  },
+
+  {
+    "nome": "Iguana",
+    "specie": "Rettile"
+  },
+  {
+    "nome": "Camaleonte",
+    "specie": "Rettile"
+  },
+  {
+    "nome": "Tartaruga",
+    "specie": "Rettile"
+  },
+  {
+    "nome": "Serpente",
+    "specie": "Rettile"
+  }
+]

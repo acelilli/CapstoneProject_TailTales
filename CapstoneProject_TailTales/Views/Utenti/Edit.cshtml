@@ -1,0 +1,145 @@
+﻿@model CapstoneProject_TailTales.Models.Utenti
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Modifica Profilo";
+    var regioni = ViewData["Regioni"] as List<string>;
+    var provincePerRegione = ViewData["ProvincePerRegione"] as Dictionary<string, List<string>>;
+    var roles = ViewData["Ruoli"] as List<CapstoneProject_TailTales.Models.Ruoli>;
+}
+
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h2 class="sedan-regular">Modifica profilo</h2>
+            <div class="form-group row">
+                <h4 class="sedan-regular">Bentornat*, @User.Identity.Name ! Cosa vuoi modificare?</h4>
+                <hr />
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <section class="row g-1">
+                        <!--Card 1: Essentials-->
+                        <div class="col-md-6 border-0" id="EssentialUserInfo">
+                            <div>
+                                <h5 class="sedan-regular">Aggiorna i dati essenziali</h5>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.IdUtente)
+
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.IdRuolo_FK, "Ruolo", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.DropDownListFor(model => model.IdRuolo_FK, new SelectList(ViewBag.Ruoli, "IdRuolo", "Ruolo"), "Seleziona Ruolo", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.IdRuolo_FK, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-10">
+                                    @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-10">
+                                    @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-10">
+                                    @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Card 2: Personal Data-->
+                        <div class=" col-md-6 border-0" id="PersonalInfo">
+                            <div>
+                                <h5 class="sedan-regular">Aggiorna le informazioni personali</h5>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Cognome, "Cognome", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Regione, "Regione", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.DropDownListFor(model => model.Regione, new SelectList(regioni), "Seleziona Regione", new { @class = "form-control", @id = "regione" })
+                                        @Html.ValidationMessageFor(model => model.Regione, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Provincia, "Provincia", htmlAttributes: new { @class = "control-label" })
+                                    <div>
+                                        @Html.DropDownListFor(model => model.Provincia, new SelectList(new List<string>()), "Seleziona Provincia", new { @class = "form-control", @id = "provincia" })
+                                        @Html.ValidationMessageFor(model => model.Provincia, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="d-flex justify-content-between my-1">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn bg-lightblue" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <a href="@Url.Action("Index", "Home")" class="btn bg-dark-grey">Homepage</a>
+                            </div>
+                        </div>
+                    </section>
+                }
+                </div>
+            </div>
+        </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Tramite questo script, collegandoci alla sezione regione cercherà nel json tutte le province appartenenti alla regione-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var regioneSelect = document.getElementById("regione");
+            var provinciaSelect = document.getElementById("provincia");
+            regioneSelect.addEventListener("change", function () {
+                var regione = this.value;
+                var provincePerRegione = @Html.Raw(Json.Encode(provincePerRegione));
+                provinciaSelect.innerHTML = ""; // Pulisce le opzioni esistenti
+                provincePerRegione[regione].forEach(function (provincia) {
+                    var option = document.createElement("option");
+                    option.textContent = provincia;
+                    option.value = provincia;
+                    provinciaSelect.appendChild(option);
+                });
+            });
+        });
+    </script>
+}

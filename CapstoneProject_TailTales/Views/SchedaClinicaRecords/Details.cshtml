@@ -1,0 +1,66 @@
+﻿@model CapstoneProject_TailTales.Models.SchedaClinicaRecords
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SchedaClinicaRecords</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Libretto.NumMicrochip)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libretto.NumMicrochip)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utenti.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utenti.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVisita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataVisita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diagnosi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diagnosi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Veterinario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Veterinario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prezzo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdRecordSC }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

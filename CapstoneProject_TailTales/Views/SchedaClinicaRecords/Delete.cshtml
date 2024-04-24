@@ -1,0 +1,81 @@
+﻿@model CapstoneProject_TailTales.Models.SchedaClinicaRecords
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Cancella record Visita";
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center">Vuoi cancellare questa visita? </h3>
+            <div class="form-group row px-5">
+                <hr />
+                <div class="d-flex">
+                    <div class=" col-md-6 border-0">
+                        <dl class="dl-horizontal">
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Libretto.NumMicrochip)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Libretto.NumMicrochip)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.DataVisita)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.DataVisita)
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Diagnosi)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Diagnosi)
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class=" col-md-6 border-0">
+                        <dl class="dl-horizontal">
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Veterinario)
+                            </dt>
+
+                            <dd>
+                                @if (Model.Veterinario != null)
+                                {
+                                    @Html.DisplayFor(model => model.Veterinario)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(model => model.Utenti.Username)
+                                }
+                            </dd>
+
+                            <dt class="sedan-regular fw-bold">
+                                @Html.DisplayNameFor(model => model.Prezzo)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Prezzo)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Cancella" class="btn bg-orange" /> |
+                        @Html.ActionLink("Torna indietro", "Index")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>

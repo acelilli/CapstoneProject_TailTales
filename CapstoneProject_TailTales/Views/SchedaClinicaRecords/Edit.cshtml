@@ -1,0 +1,99 @@
+﻿@model CapstoneProject_TailTales.Models.SchedaClinicaRecords
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Modifica Visita Medica";
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center mt-1">Modifica visita:</h3>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+                    <div class="col-md-6 border-0">
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger m-0 p-0" })
+                            @Html.HiddenFor(model => model.IdRecordSC, new { @class = "text-danger m-0 p-0" })
+                            @Html.HiddenFor(model => model.IdLibretto_FK, new { @class = "text-danger m-0 p-0" })
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.DataVisita, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.DataVisita, new { htmlAttributes = new { @class = "form-control m-0", @id = "DataVisita", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.DataVisita, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Diagnosi, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Diagnosi, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.Diagnosi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Prezzo, htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Prezzo, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.Prezzo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 border-0">
+                        <div class="form-horizontal">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.IdUtente_FK, "Veterinario registrato", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.DropDownList("IdUtente_FK", ViewData["VeterinariList"] as SelectList, "Seleziona un veterinario", new { @class = "form-control m-0" })
+                                    @Html.ValidationMessageFor(model => model.IdUtente_FK, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Veterinario, "Veterinario non registrato", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Veterinario, new { htmlAttributes = new { @class = "form-control m-0" } })
+                                    @Html.ValidationMessageFor(model => model.Veterinario, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <section class="d-flex justify-content-between my-1">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn bg-lightblue" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="@Url.Action("Index", "Home")" class="btn bg-dark-grey">Homepage</a>
+                        </div>
+                    </div>
+                </section>
+            }
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var today = new Date().toISOString().split('T')[0];
+            document.getElementById("DataVisita").value = today;
+        });
+    </script>
+}
+

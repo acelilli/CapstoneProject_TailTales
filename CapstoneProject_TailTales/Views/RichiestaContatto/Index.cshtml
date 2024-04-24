@@ -1,0 +1,97 @@
+﻿@using CapstoneProject_TailTales.Controllers
+@model RichiestaContattoController.FriendshipViewModel
+@Styles.Render("~/Content/FormStyle.css")
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card" style="min-height:350px" class="overflow-y-scroll">
+            <h2 class="fw-bold mt-2">Richieste ricevute in sospeso...</h2>
+            <table>
+                @if (Model.OtherUsers.Any() || Model.OtherPets.Any() || Model.PendingRequests.Any() || Model.LoggedInUserName.Any() || Model.MyPets.Any())
+                {
+                        foreach (var request in Model.PendingRequests)
+                        {
+                            <tr class="border-bottom">
+                                <td>
+                                    Il @request.DataRichiesta, hai ricevuto una richiesta di tipo 
+                                    
+                                    @if(@request.TipoRelazione == "AmiciziaUtenti")
+                    {
+                        <i>amicizia utenti</i>
+                    } else
+                    {
+                        <i>amicizia pets</i>
+                    }
+                                    da                                 @{
+                                        var requestingUser = Model.OtherUsers.FirstOrDefault(u => u.IdUtente == request.IdUtenteRichiedente);
+                                        if (requestingUser != null)
+                                        {
+                                            <b>@requestingUser.Username</b>
+                                        }
+                                    }
+                                    @{
+                                        var requestingPet = Model.OtherPets.FirstOrDefault(p => p.IdPet == request.IdPetRichiedente);
+                                        if (requestingPet != null)
+                                        {
+                                            <span>e</span> <b>@requestingPet.Nome</b>
+                                        }
+                                    }
+                                    @{
+                                        var requestedPet = Model.MyPets.FirstOrDefault(p => p.IdPet == request.IdPetRichiesto);
+                                        if (requestedPet != null)
+                                        {
+                                            <span>e</span> <b>@requestedPet.Nome</b>
+                                        }
+                                    }
+                                    .<br />
+                                    La richiesta è @request.StatoRichiesta Vuoi accettarla? 
+                                </td>
+                                <td class="py-2">
+                                        @if (request.IdPetRichiedente.HasValue && request.IdPetRichiesto.HasValue)
+                                        {
+                                            <!-- Form per la creazione di AmiciziaPet -->
+                                            using (Html.BeginForm("Create", "AmiciziaPet", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="IdPetRichiedente" value="@request.IdPetRichiedente" />
+                                                <input type="hidden" name="IdPetRichiesto" value="@request.IdPetRichiesto" />
+                                                <button type="submit" class="btn bg-green mx-0 my-0"><i class="bi bi-check-all"></i></button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <!-- Form per la creazione di AmiciziaUtenti -->
+                                            using (Html.BeginForm("Create", "AmiciziaUtenti", new { id = requestingUser.IdUtente }, FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="IdUtenteRichiedente" value="@request.IdUtenteRichiedente" />
+                                                <button type="submit" class="btn bg-green mx-0 my-0"><i class="bi bi-check-all"></i></button>
+                                            }
+                                        }
+                                        <!-- Rifiuta richiesta contatto -->
+                                        <form action="@Url.Action("RejectReq", "RichiestaContatto", new {id = request.IdRichiesta})" method="post" class="mt-0">
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("requestId", request.IdRichiesta)
+                                            <button type="submit" class="btn bg-orange"><i class="bi bi-x"></i></button>
+                                        </form>
+                                </td>
+                            </tr>
+                        }
+                }
+                else
+                {
+            <tr>
+                <td>
+                    Non ci sono richieste per te!
+                </td>
+            </tr>
+                }
+            </table>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,54 @@
+﻿@model CapstoneProject_TailTales.Models.AlbumFoto
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Cancella Foto";
+}
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center">Vuoi cancellare questa visita? </h3>
+            <div class="form-group row px-5">
+                <hr />
+                <div class="row">
+                    <dl class="dl-horizontal text-center mb-0">
+                        <dt class="sedan-regular fw-bold">
+                            Caricata il:
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DataRecord)
+                        </dd>
+
+                        <dt class="sedan-regular fw-bold">
+                            Immagine caricata:
+                        </dt>
+
+                        <dd class="px-5">
+                            <img id="imgPreview" src="@Model.ImgUrl" alt="Immagine" style="max-width: 200px; max-height: 200px;" class="mb-3" />
+                        </dd>
+
+                        <dt class="sedan-regular fw-bold">
+                            @Html.DisplayNameFor(model => model.Descrizione)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Descrizione)
+                        </dd>
+                    </dl>
+
+                </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Cancella" class="btn bg-orange" /> |
+                        @Html.ActionLink("Torna indietro", "Index")
+                    </div>
+                }
+            </div>
+                
+            </div>
+        </div>
+</main>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CapstoneProject_TailTales.Models.Utenti>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<main class="container-fluid px-0 pb-0">
+    <div class="row me-3">
+        <section class="col-12 d-flex flex-column my-1">
+            <div class="transparent-lightorange rounded-2 p-2 mb-1" aria-labelledby="Utenti">
+                <div class="bg-orange px-4 py-0 rounded-2 my-1 d-flex justify-content-between align-items-center">
+                    <h5 class="sedan-regular my-0">Utenti</h5>
+                    <div>
+                        <a href="@Url.Action("Create New", "Create")" class="btn btn-close-white">Aggiungi Utente</a>
+                    </div>
+                </div>
+                <div class="p-3">
+                    <table class="table rounded-3">
+                        <thead>
+                            <tr class="px-0">
+                                <th>Ruolo</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Nome</th>
+                                <th>Cognome</th>
+                                <th>Regione</th>
+                                <th>Provinxia</th>
+                                <th>&emsp;</th>
+                                <!-- Aggiungi altre colonne se necessario -->
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ruoli.Ruolo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Cognome)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Regione)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Provincia)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Modifica", "Edit", new { id = item.IdUtente }) |
+                                        @Html.ActionLink("Dettagli", "Details", new { id = item.IdUtente }) |
+                                        @Html.ActionLink("Cancella", "Delete", new { id = item.IdUtente })
+                                    </td>
+                                </tr>
+                            }
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

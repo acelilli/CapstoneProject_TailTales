@@ -1,0 +1,125 @@
+﻿/*------ Home Card Pets -----------*/
+
+.petcard {
+    margin: 0 auto 5px auto;
+    padding: 15px;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.5),2px 2px 3px 0 rgba(0,0,0,0.07);
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #000;
+    line-height: 1;
+    height: fit-content;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+    .petcard legend {
+        line-height: 2;
+    }
+
+.pc-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.pc-img {
+    width: 135px;
+    height: 135px;
+}
+
+
+.pc-imgMyPets {
+    width: 160px;
+    height: 160px;
+}
+
+.ProPicPet {
+    height: 130px;
+    width: 100%;
+    object-fit: cover;
+}
+
+    .ProPicPet img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.pin {
+    width: 25px;
+    float: left;
+    margin: -20px 0 -100px -5px;
+    transform: rotate(-90deg);
+    position: relative;
+}
+
+.pc-img {
+    background: #fff;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 1px 1px 2px 0 rgba(0,0,0,0.05);
+    margin: -10px 0 0 -25px;
+    padding: 10px;
+    transform: rotate(2deg);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-col {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.petcard .card-title {
+    font-size: 15px;
+    transition: 1s;
+    cursor: pointer;
+}
+
+    .petcard .card-title i {
+        font-size: 15px;
+        transition: 1s;
+        cursor: pointer;
+        color: #ffa710;
+    }
+
+        .petcard .card-title i:hover {
+            transform: scale(1.25) rotate(100deg);
+            color: #18d4ca;
+        }
+
+.petcard:hover {
+    transform: scale(1.05);
+    box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+}
+
+.petcard .card-text {
+    height: 80px;
+}
+
+.petcard::before, .petcard::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale3d(0, 0, 1);
+    transition: transform .3s ease-out 0s;
+    background: rgba(255, 255, 255, 0.1);
+    content: '';
+    pointer-events: none;
+}
+
+.petcard::before {
+    transform-origin: left top;
+}
+
+.petcard::after {
+    transform-origin: right bottom;
+}
+
+.petcard:hover::before, .petcard:hover::after, .petcard:focus::before, .petcard:focus::after {
+    transform: scale3d(1, 1, 1);
+}
+

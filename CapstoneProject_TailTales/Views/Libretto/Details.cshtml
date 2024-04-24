@@ -1,0 +1,298 @@
+﻿@model CapstoneProject_TailTales.Models.Libretto
+
+@{
+    ViewBag.Title = "Libretto del Pet";
+    var db = new CapstoneProject_TailTales.Models.ModelDbContext();
+}
+
+<main class="container-fluid px-0 pb-0">
+    <div class="row me-3">
+        <!-- Prima col: Info & Dati essenziali Pet-->
+        <section class="d-flex flex-wrap px-3 mt-3">
+            <div class="card transparent-lightgreen m-1 p-3 rounded-3 col-md-12 border-0 mx-3">
+                <div class="row no-gutters">
+                    <div class="py-3 pt-2 ps-3 col-md-3 h-100 object-fit-cover" style="max-width: 250px; height: 250px">
+                        <img src="@Model.Pet.ImgProfilo" class="img-fluid w-100 h-100 rounded-3" style="object-fit: cover; object-position: center;" alt="Immagine profilo di @Model.Pet.Nome">
+                    </div>
+                    <div class="col">
+                        <div class="card-block w-100 ps-0 pt-2">
+                            <div class="bg-white d-flex justify-content- align-items-center px-2 py-1 rounded-2 w-100">
+                                <h4 class="card-title sedan-regular mt-2 fw-bold">@Model.Pet.Nome</h4>
+                                <div class="w-100 d-flex justify-content-end">
+                                    <!-- Bottone per i dettagli del libretto -->
+                                    <a href="@Url.Action("Details", "Libretto", new { id = Model.IdLibretto })" class="btn bg-dark-grey border-white rounded mx-1"><i class="bi bi-journals"></i></a>
+                                    <a href="@Url.Action("Edit", "Pet", new { id = Model.IdPet_FK })" class="btn bg-lightblue  border-white rounded mx-1"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="@Url.Action("Delete", "Pet", new { id = Model.IdLibretto })" class="btn bg-orange  border-white rounded mx-1">
+                                        <i class="bi bi-x-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mx-0 w-100 py-4">
+                                <div class="row w-100 d-flex align-content-center">
+                                    <!--Dati pet-->
+                                    <div class="d-flex col-md-6 flex-md-column ps-4">
+                                        <div class="form-group d-inline-flex">
+                                            @Html.LabelFor(model => model.Pet.Nome, "Nome", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp; 
+                                            <div>
+                                                @Html.DisplayFor(model => model.Pet.Nome, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-10 d-inline-flex">
+                                            @Html.LabelFor(model => model.Pet.Sesso, "Sesso", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Pet.Sesso, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-10 d-inline-flex">
+                                            @Html.LabelFor(model => model.Pet.Tipo, "Specie", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Pet.Tipo, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-10 d-inline-flex">
+                                            @Html.LabelFor(model => model.Pet.Razza, "Razza/Tipo", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Pet.Razza, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-10 d-inline-flex">
+                                            @Html.LabelFor(model => model.Pet.DataNascita, "Data di nascita", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Pet.DataNascita, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Libretto-->
+                                    <div class="d-flex col-md-6 flex-md-column">
+                                        <div class="form-group d-inline-flex">
+                                            @Html.LabelFor(model => model.NumMicrochip, "Numero Microchip", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.NumMicrochip, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 d-inline-flex">
+                                            @Html.LabelFor(model => model.Proprietario, "Proprietario", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Proprietario, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 d-inline-flex">
+                                            @Html.LabelFor(model => model.Indirizzo, "Indirizzo", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Indirizzo, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 d-inline-flex">
+                                            @Html.LabelFor(model => model.Provenienza, "Provenienza (allevamento, altro...)", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Provenienza, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 d-inline-flex">
+                                            @Html.LabelFor(model => model.NumEnci, "Numero Enci", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.NumEnci, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 d-inline-flex">
+                                            @Html.LabelFor(model => model.Sterilizzato, "Sterilizzato", htmlAttributes: new { @class = "control-label fw-bold" }): &emsp;
+                                            <div>
+                                                @Html.DisplayFor(model => model.Sterilizzato, new { @class = "form-control", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+   
+    <!-- Fine-->
+    <!-- Row 2: Scheda clinica + Vaccini Records -->
+    <div class="row mx-2">
+        <!--Sezione 2.1 Scheda Clinica -->
+        <section class="col-12 d-flex flex-column my-1">
+            <div class="transparent-lightpink rounded-2 p-2 mb-1" aria-labelledby="SchedaClinica">
+                <div class="bg-pink px-3 py-0 rounded-2 my-1 d-flex justify-content-between align-items-center">
+                    <h5 class="sedan-regular my-0">Scheda Clinica</h5>
+                    <div>
+                        <a href="@Url.Action("Create", "SchedaClinicaRecords", new { idlibretto_fk = Model.IdLibretto })" class="btn btn-close-white">Aggiungi Visita</a>
+                    </div>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr class="px-0">
+                                <th>Data Visita</th>
+                                <th>Diagnosi</th>
+                                <th>Veterinario</th>
+                                <th>Prezzo</th>
+                                <th>&emsp;</th>
+                                <!-- Aggiungi altre colonne se necessario -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var screcord in Model.SchedaClinicaRecords)
+                            {
+                                <tr class="px-0 transparent-lightpink">
+                                    <td>@screcord.DataVisita.ToShortDateString()</td>
+                                    <td>@screcord.Diagnosi</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(screcord.Veterinario))
+                                        {
+                                            @screcord.Veterinario
+                                        }
+                                        else
+                                        {
+                                            var user = db.Utenti.FirstOrDefault(u => u.IdUtente == screcord.IdUtente_FK);
+                                            if (user != null)
+                                            {
+                                                @Html.Raw(user.Nome + " " + user.Cognome)
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (screcord.Prezzo.HasValue)
+                                        {
+                                            @screcord.Prezzo.Value.ToString("0.00")
+                                        }
+                                        else
+                                        {
+                                            <span>//</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "SchedaClinicaRecords", new { id = screcord.IdRecordSC })" class="btn bg-green m-1"><i class="bi bi-pencil-square"></i></a>
+                                        <a href="@Url.Action("Delete", "SchedaClinicaRecords", new { id = screcord.IdRecordSC })" class="btn bg-orange m-1"><i class="bi bi-x-square"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="col-12 d-flex flex-column my-1">
+            <div class="transparent-lightorange rounded-2 p-2 mb-1" aria-labelledby="Vaccini">
+                <div class="bg-orange px-2 py-0 rounded-2 my-1 d-flex justify-content-between align-items-center">
+                    <h5 class="sedan-regular my-0">Vaccini</h5>
+                    <div>
+                        <a href="@Url.Action("Create", "VacciniRecords", new { idlibretto_fk = Model.IdLibretto })" class="btn btn-close-white">Aggiungi Vaccino</a>
+                    </div>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Previsto</th>
+                                <th>Effettuato</th>
+                                <th>N.Lotto</th>
+                                <th>Scadenza</th>
+                                <th>Info</th>
+                                <th>Richiamo</th>
+                                <th>Vet.</th>
+                                <th>Prezzo</th>
+                                <th>&emsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var vrecord in Model.VacciniRecords)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (@vrecord.DataPrevista.HasValue)
+                                        {
+                                            @vrecord.DataPrevista.Value.ToShortDateString()
+                                        }
+                                        else
+                                        {
+                                            <span>//</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@vrecord.DataEffettuato.HasValue)
+                                        {
+                                            @vrecord.DataEffettuato.Value.ToShortDateString()
+                                        }
+                                        else
+                                        {
+                                            <span>//</span>
+                                        }
+                                    </td>
+                                    <td>@vrecord.VaccinoNLotto</td>
+                                    <td>
+                                        @if (@vrecord.Scadenza.HasValue)
+                                        {
+                                            @vrecord.Scadenza.Value.ToShortDateString()
+                                        }
+                                        else
+                                        {
+                                            <span>//</span>
+                                        }
+                                    </td>
+                                    <td>@vrecord.PuntoInoculo</td>
+                                    <td>
+                                        @{
+                                            switch (vrecord?.Richiamo)
+                                            {
+                                                case true:
+                                                    <p>Il vaccino è un richiamo programmato</p>
+                                                    break;
+                                                case false:
+                                                    <p>Il vaccino ha un richiamo programmato</p>
+                                                    break;
+                                                default:
+                                                    <p>Il vaccino non ha richiami</p>
+                                                    break;
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(vrecord.Veterinario))
+                                        {
+                                            @vrecord.Veterinario
+                                        }
+                                        else
+                                        {
+                                            var user = db.Utenti.FirstOrDefault(u => u.IdUtente == vrecord.IdUtente_FK);
+                                            if (user != null)
+                                            {
+                                                @Html.Raw(user.Nome + " " + user.Cognome)
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (vrecord.Prezzo.HasValue)
+                                        {
+                                            @vrecord.Prezzo.Value.ToString("0.00")
+                                        }
+                                        else
+                                        {
+                                            <span>//</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "VacciniRecords", new { id = vrecord.IdRecordVaccini })" class="btn bg-green m-1"><i class="bi bi-pencil-square"></i></a>
+                                        <a href="@Url.Action("Delete", "VacciniRecords", new { id = vrecord.IdRecordVaccini })" class="btn bg-orange m-1"><i class="bi bi-x-square"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,73 @@
+﻿@model CapstoneProject_TailTales.Models.AlbumFoto
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Aggiungi una nuova foto";
+}
+
+@if (ViewBag.ModelErrors != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var error in ViewBag.ModelErrors)
+        {
+            <p>@error</p>
+        }
+    </div>
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container">
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular">Aggiungi una nuova foto:</h3>
+            @using (Html.BeginForm("Create", "AlbumFoto", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group col-md-12">
+                    @Html.HiddenFor(model => model.IdUtente_FK)
+                    @Html.HiddenFor(model => model.DataRecord, new { id = "DataRecord" })
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.ImgUrl,"Carica Immagine", htmlAttributes: new { @class = "control-label my-1" })
+                    <div>
+                        @Html.TextBoxFor(model => model.ImgUrl, new { type = "file", name = "file", @id = "ImgUrl" })
+                        @Html.ValidationMessageFor(model => model.ImgUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label my-1" })
+                    <div>
+                        @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <section class="d-flex justify-content-center my-1">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <input type="submit" value="Save" class="btn bg-lightblue" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.ActionLink("Homepage", "Index", "Home", new { @class = "btn bg-dark-grey" })
+                        </div>
+                    </div>
+                </section>
+            }
+        </div> <!-- Fine myform-card -->
+    </div> <!-- Fine background-container -->
+</main>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Imposta il valore di DataRecord sulla data e ora correnti
+        var now = new Date();
+        var formattedDate = now.toISOString(); // Formato ISO per compatibilità con SQL Server
+        document.getElementById("DataRecord").value = formattedDate;
+    });
+</script>

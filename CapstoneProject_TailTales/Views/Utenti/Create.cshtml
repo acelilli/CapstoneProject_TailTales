@@ -1,0 +1,135 @@
+﻿@model CapstoneProject_TailTales.Models.Utenti
+@Styles.Render("~/Content/FormStyle.css")
+@{
+    ViewBag.Title = "Registrazione Utente";
+    var regioni = ViewData["Regioni"] as List<string>;
+    var provincePerRegione = ViewData["ProvincePerRegione"] as Dictionary<string, List<string>>;
+}
+
+<main class="container-fluid overflow-y-visible">
+    <div class="d-flex justify-content-center background-container" >
+        <div id="gradient-bg"></div>
+        <div id="myform-card">
+            <h3 class="sedan-regular text-center">Registrazione utente:</h3>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <section class="row g-1">
+                    <!--Card 1: Essentials-->
+                    <div class="justify-content-center col-md-6 border-0" id="EssentialUserInfo">
+                        <div class="text-center">
+                            <h5 class="sedan-regular my-2">Aggiungi i tuoi dati essenziali</h5>
+                            <p style="font-size:12px" class="dark-grey pb-3 mb-3">Questi campi sono obbligatoriper la registrazione al sito.</p>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.IdUtente)
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.IdRuolo_FK, "Ruolo", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.DropDownListFor(model => model.SelectedRuoloId, Model.RuoliList, "Seleziona un ruolo", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.IdRuolo_FK, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12  mb-0">
+                                @Html.LabelFor(model => model.Username, "Username", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12  mb-0">
+                                @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Password, "Password", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div>
+                                    <input type="submit" value="Crea Account" class="btn bg-lightblue" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Card 2: Personal Data-->
+                    <div class="justify-content-center col-md-6 border-0" id="PersonalInfo">
+                        <div class=" text-center my-2">
+                            <h5 class="sedan-regular">Informazioni personali</h5>
+                            <p style="font-size:12px" class="dark-grey">Questi campi non sono obbligatori, ma consentiranno una navigazione migliore!</p>
+
+                            <div class="form-group col-md-12 mb-0">
+                                @Html.LabelFor(model => model.Nome, "Nome", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger, pb-0" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 mb-0">
+                                @Html.LabelFor(model => model.Cognome, "Cognome", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Regione, "Regione", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.DropDownListFor(model => model.Regione, new SelectList(regioni), "Seleziona Regione", new { @class = "form-control", @id = "regione" })
+                                    @Html.ValidationMessageFor(model => model.Regione, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 mb-3 pb-1">
+                                @Html.LabelFor(model => model.Provincia, "Provincia", htmlAttributes: new { @class = "control-label my-1" })
+                                <div>
+                                    @Html.DropDownListFor(model => model.Provincia, new SelectList(new List<string>()), "Seleziona Provincia", new { @class = "form-control", @id = "provincia" })
+                                    @Html.ValidationMessageFor(model => model.Provincia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12 pt-2 mt-3">
+                                <div>
+                                    <a href="@Url.Action("Login", "Utenti")" class="btn bg-dark-grey">Homepage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            }
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Tramite questo script, collegandoci alla sezione regione cercherà nel json tutte le province appartenenti alla regione-->
+    <script>
+        $(document).ready(function () {
+            $('#regione').change(function () {
+                var regione = $(this).val();
+                var province = @Html.Raw(Json.Encode(provincePerRegione));
+
+                $('#provincia').empty();
+                $.each(province[regione], function (index, value) {
+                    $('#provincia').append($('<option>').text(value).attr('value', value));
+                });
+            });
+        });
+    </script>
+}

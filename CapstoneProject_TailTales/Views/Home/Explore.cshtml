@@ -1,0 +1,463 @@
+﻿@using CapstoneProject_TailTales.Controllers
+@model HomeController.SearchViewModel
+@Styles.Render("~/Content/ExploreSearch.css")
+@Styles.Render("~/Content/PetCards.css")
+@{
+    ViewBag.Title = "Explore";
+    var nearbyUsers = ViewData["NearbyUsers"] as IEnumerable<CapstoneProject_TailTales.Models.Utenti>;
+    string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
+    int userId;
+    bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
+}
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+
+<main class="container-fluid">
+    <div class="row">
+        <!-- Prima sezione: Utenti Amici -->
+        <h3 class="sedan-regular fw-semibold">I tuoi amici</h3>
+    </div>
+    <div class="d-flex row w-100">
+        @foreach (var utente in Model.MyFriends)
+        {
+            var usercardId = utente.IdUtente;
+
+            <div class="col-md-3 userCard rounded-2 px-0 p-2">
+                <div id="content">
+                    <navigation class="d-flex flex-column col-2 justify-content-center align-items-center z-0 pe-2">
+                        <a href="#one_@utente.IdUtente" class="btn lightblue transparent-lightblue fw-semibold"><i class="bi bi-person-fill"></i></a>
+                        <a href="#two_@utente.IdUtente" class="btn green transparent-lightgreen fw-semibold"><i class="fa-solid fa-paw"></i></a>
+                    </navigation>
+                    <div class="userCardContent col-9">
+                        <!--Sezione pets dell'utente-->
+                        <section id="two_@utente.IdUtente" class="transparent-lightgreen p-1 rounded-3 w-100" style="display: none;">
+                            <h3 class="fw-semibold sedan-regular mb-0 p-1">Pets dell'utente</h3>
+                            <div class="d-flex flex-column px-2 my-0">
+                                @if (Model.Pets.Any(p => p.IdUtente_FK == usercardId))
+                                {
+                                    foreach (var pet in Model.Pets.Where(p => p.IdUtente_FK == usercardId))
+                                    {
+                                        var petId = pet.IdPet;
+                                        <!--MiniCard-->
+                                        <div class="transparent-lightgreen p-3 rounded-3 my-1">
+                                            @if (pet.Sesso == "M")
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/blue_pin.svg" class="pin" alt="pin">
+                                            }
+                                            else
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/pink_pin.svg" class="pin" alt="pin">
+                                            }
+                                            <!--IMAGE + info-->
+                                            <div class="row px-1">
+                                                <div style="background:#ddd url(@pet.ImgProfilo)center;background-size:cover;" class="col-lg-6 rounded-3 "></div>
+
+                                                <!--BLURB-->
+                                                <div class="m-0 col-lg-6">
+                                                    <span class="sedan-regular fw-bold">@pet.Nome</span> è un @pet.Tipo @pet.Razza!
+                                                </div>
+                                            </div>
+
+                                            <!--FOOTER-->
+                                            <div style="display:flex;align-items:center;">
+
+                                                <!--Richiesta contatto-->
+                                                <div class="d-flex justify-content-between mt-2">
+                                                    @using (Html.BeginForm("Create", "RichiestaContatto", FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <input type="hidden" name="idUtenteRichiesto" value="@utente.IdUtente" />
+                                                        <input type="hidden" name="IdPetRichiesto" value="@pet.IdPet" />
+                                                        <label for="idPetRichiedente" class="sedan-regular fw-bold">Seleziona il tuo pet:</label>
+                                                        <select name="idPetRichiedente" id="idPetRichiedente" class="mx-1">
+                                                            @foreach (var mypet in Model.MyPets)
+                                                            {
+                                                                <option value="@mypet.IdPet">@mypet.Nome</option>
+                                                            }
+                                                        </select>
+
+                                                        <button type="submit" class="btn bg-green">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>L'utente non ha ancora aggiunto animali!</p>
+                                }
+                            </div>
+                        </section>
+                        <!--Sezione dati dell'utente-->
+                        <section id="one_@utente.IdUtente" class="transparent-lightblue p-2 rounded-3 w-100">
+                            <div class="user-info w-100">
+                                <div class="d-flex align-items-center justify-content-between bg-lightblue p-2 rounded-2">
+                                    <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                        Dati del profilo di @utente.Username
+                                    </p>
+                                    <a href="@Url.Action("Details", "Utenti",  new { id = utente.IdUtente })" class="btn"><i class="bi bi-three-dots"></i></a>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="col-6 p-2">
+                                        @if (!string.IsNullOrEmpty(utente.Nome))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">Nome</p>
+                                            <p>@utente.Nome</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(utente.Cognome))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Cognome
+                                            </p>
+                                            <p>@utente.Cognome</p>
+                                        }
+                                    </div>
+                                    <div class="col-6 p-2">
+                                        @if (!string.IsNullOrEmpty(utente.Regione))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Regione
+                                            </p>
+                                            <p>@utente.Regione</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(utente.Provincia))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Provincia
+                                            </p>
+                                            <p>@utente.Provincia</p>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+
+
+    <div class="row">
+        <!-- Seconda sezione: Utenti vicini -->
+        <h3 class="sedan-regular fw-semibold">Utenti vicino a te</h3>
+    </div>
+    <div class="d-flex row w-100">
+        @foreach (var utente in Model.NearbyUsers)
+        {
+            var usercardId = utente.IdUtente;
+
+            <div class="col-md-3 userCard rounded-2 px-0 p-2">
+                <div id="content">
+                    <navigation class="d-flex flex-column col-2 justify-content-center align-items-center z-0 pe-2">
+                        <a href="#one_@utente.IdUtente" class="btn lightblue transparent-lightblue fw-semibold"><i class="bi bi-person-fill"></i></a>
+                        <a href="#two_@utente.IdUtente" class="btn green transparent-lightgreen fw-semibold"><i class="fa-solid fa-paw"></i></a>
+                        @if (!Model.MyFriends.Any(f => f.IdUtente == usercardId) && usercardId != userId)
+                        {
+                            <form class="ml-1" action="@Url.Action("Create", "RichiestaContatto", new {id = utente.IdUtente})" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="idUtenteRichiesto" value="@utente.IdUtente" />
+                                <button type="submit" class="border-0 p-0 justify-content-center rounded-3 p-1">
+                                    <img src="https://alipg.altervista.org/TailTales/add_friend.svg" alt="AddFriend" height="35" type="image/svg+xml" />
+                                </button>
+                            </form>
+                        }
+                    </navigation>
+                    <div class="userCardContent col-9">
+                        <!--Sezione pets dell'utente-->
+                        <section id="two_@utente.IdUtente" class="transparent-lightgreen p-1 rounded-3 w-100" style="display: none;">
+                            <h3 class="fw-semibold sedan-regular mb-0 p-1">Pets dell'utente</h3>
+                            <div class="d-flex flex-column px-2 my-0">
+                                @if (Model.Pets.Any(p => p.IdUtente_FK == usercardId))
+                                {
+                                    foreach (var pet in Model.Pets.Where(p => p.IdUtente_FK == usercardId))
+                                    {
+                                        var petId = pet.IdPet;
+                                        <!--MiniCard-->
+                                        <div class="transparent-lightgreen p-3 rounded-3 my-1">
+                                            @if (pet.Sesso == "M")
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/blue_pin.svg" class="pin" alt="pin">
+                                            }
+                                            else
+                                            {
+                                                <img src="https://alipg.altervista.org/TailTales/pink_pin.svg" class="pin" alt="pin">
+                                            }
+                                            <!--IMAGE + info-->
+                                            <div class="row px-1">
+                                                <div style="background:#ddd url(@pet.ImgProfilo)center;background-size:cover;" class="col-lg-6 rounded-3 "></div>
+
+                                                <!--BLURB-->
+                                                <div class="m-0 col-lg-6">
+                                                    <span class="sedan-regular fw-bold">@pet.Nome</span> è un @pet.Tipo @pet.Razza!
+                                                </div>
+                                            </div>
+
+                                            <!--FOOTER-->
+                                            <div style="display:flex;align-items:center;">
+
+                                                <!--Richiesta contatto-->
+                                                <div class="d-flex justify-content-between mt-2">
+                                                    @using (Html.BeginForm("Create", "RichiestaContatto", FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+
+                                                        <input type="hidden" name="idUtenteRichiesto" value="@utente.IdUtente" />
+                                                        <input type="hidden" name="IdPetRichiesto" value="@pet.IdPet" />
+                                                        <label for="idPetRichiedente" class="sedan-regular fw-bold">Seleziona il tuo pet:</label>
+                                                        <select name="idPetRichiedente" id="idPetRichiedente" class="mx-1">
+                                                            @foreach (var mypet in Model.MyPets)
+                                                            {
+                                                                <option value="@mypet.IdPet">@mypet.Nome</option>
+                                                            }
+                                                        </select>
+
+                                                        <button type="submit" class="btn bg-green">
+                                                            <i class="bi bi-plus"></i>
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>L'utente non ha ancora aggiunto animali!</p>
+                                }
+                            </div>
+                        </section>
+                        <!--Sezione dati dell'utente-->
+                        <section id="one_@utente.IdUtente" class="transparent-lightblue p-2 rounded-3 w-100">
+                            <div class="user-info w-100">
+                                <div class="d-flex align-items-center justify-content-between bg-lightblue p-2 rounded-2">
+                                    <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                        Dati del profilo di @utente.Username
+                                    </p>
+                                    <a href="@Url.Action("Details", "Utenti",  new { id = utente.IdUtente })" class="btn"><i class="bi bi-three-dots"></i></a>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="col-6 p-2">
+                                        @if (!string.IsNullOrEmpty(utente.Nome))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">Nome</p>
+                                            <p>@utente.Nome</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(utente.Cognome))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Cognome
+                                            </p>
+                                            <p>@utente.Cognome</p>
+                                        }
+                                    </div>
+                                    <div class="col-6 p-2">
+                                        @if (!string.IsNullOrEmpty(utente.Regione))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Regione
+                                            </p>
+                                            <p>@utente.Regione</p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(utente.Provincia))
+                                        {
+                                            <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                Provincia
+                                            </p>
+                                            <p>@utente.Provincia</p>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr />
+    <div class="row">
+        <!-- Terza sezione: Tutti gli utenti -->
+        <h3 class="sedan-regular fw-semibold">Tutti gli utenti</h3>
+        <div class="d-flex row">
+            @foreach (var utente in Model.Users)
+            {
+                var usercardId = utente.IdUtente;
+
+                <div class="col-md-3 userCard rounded-2 px-0 p-2">
+                    <div id="content">
+                        <navigation class="d-flex flex-column col-2 justify-content-center align-items-center z-0 pe-2">
+                            <a href="#one_@utente.IdUtente" class="btn lightblue transparent-lightblue fw-semibold"><i class="bi bi-person-fill"></i></a>
+                            <a href="#two_@utente.IdUtente" class="btn green transparent-lightgreen fw-semibold"><i class="fa-solid fa-paw"></i></a>
+                            @if (!Model.MyFriends.Any(f => f.IdUtente == usercardId) && usercardId != userId)
+                            {
+                                <form class="ml-1" action="@Url.Action("Create", "RichiestaContatto", new {id = utente.IdUtente})" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="idUtenteRichiesto" value="@utente.IdUtente" />
+                                    <button type="submit" class="border-0 p-0 justify-content-center rounded-3 p-1">
+                                        <img src="https://alipg.altervista.org/TailTales/add_friend.svg" alt="AddFriend" height="35" type="image/svg+xml" />
+                                    </button>
+                                </form>
+                            }
+                        </navigation>
+                        <div class="userCardContent col-9">
+                            <!--Sezione pets dell'utente-->
+                            <section id="two_@utente.IdUtente" class="transparent-lightgreen p-1 rounded-3 w-100" style="display: none;">
+                                <h3 class="fw-semibold sedan-regular mb-0 p-1">Pets dell'utente</h3>
+                                <div class="d-flex flex-column px-2 my-0">
+                                    @if (Model.Pets.Any(p => p.IdUtente_FK == usercardId))
+                                    {
+                                        foreach (var pet in Model.Pets.Where(p => p.IdUtente_FK == usercardId))
+                                        {
+                                            var petId = pet.IdPet;
+                                            <!--MiniCard-->
+                                            <div class="transparent-lightgreen p-3 rounded-3 my-1">
+                                                @if (pet.Sesso == "M")
+                                                {
+                                                    <img src="https://alipg.altervista.org/TailTales/blue_pin.svg" class="pin" alt="pin">
+                                                }
+                                                else
+                                                {
+                                                    <img src="https://alipg.altervista.org/TailTales/pink_pin.svg" class="pin" alt="pin">
+                                                }
+                                                <!--IMAGE + info-->
+                                                <div class="row px-1">
+                                                    <div style="background:#ddd url(@pet.ImgProfilo)center;background-size:cover;" class="col-lg-6 rounded-3 "></div>
+
+                                                    <!--BLURB-->
+                                                    <div class="m-0 col-lg-6">
+                                                        <span class="sedan-regular fw-bold">@pet.Nome</span> è un @pet.Tipo @pet.Razza!
+                                                    </div>
+                                                </div>
+
+                                                <!--FOOTER-->
+                                                <div style="display:flex;align-items:center;">
+
+                                                    <!--Richiesta contatto-->
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        @using (Html.BeginForm("Create", "RichiestaContatto", FormMethod.Post))
+                                                        {
+                                                            @Html.AntiForgeryToken()
+
+                                                            <input type="hidden" name="idUtenteRichiesto" value="@utente.IdUtente" />
+                                                            <input type="hidden" name="IdPetRichiesto" value="@pet.IdPet" />
+                                                            <label for="idPetRichiedente" class="sedan-regular fw-bold">Seleziona il tuo pet:</label>
+                                                            <select name="idPetRichiedente" id="idPetRichiedente" class="mx-1">
+                                                                @foreach (var mypet in Model.MyPets)
+                                                                {
+                                                                    <option value="@mypet.IdPet">@mypet.Nome</option>
+                                                                }
+                                                            </select>
+
+                                                            <button type="submit" class="btn bg-green">
+                                                                <i class="bi bi-plus"></i>
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>L'utente non ha ancora aggiunto animali!</p>
+                                    }
+                                </div>
+                            </section>
+                            <!--Sezione dati dell'utente-->
+                            <section id="one_@utente.IdUtente" class="transparent-lightblue p-2 rounded-3 w-100">
+                                <div class="user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between bg-lightblue p-2 rounded-2">
+                                        <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                            Dati del profilo di @utente.Username
+                                        </p>
+                                        <a href="@Url.Action("Details", "Utenti",  new { id = utente.IdUtente })" class="btn"><i class="bi bi-three-dots"></i></a>
+                                    </div>
+                                    <div class="d-flex">
+                                        <div class="col-6 p-2">
+                                            @if (!string.IsNullOrEmpty(utente.Nome))
+                                            {
+                                                <p class="col-form-label text-start fw-semibold sedan-regular py-0">Nome</p>
+                                                <p>@utente.Nome</p>
+                                            }
+                                            @if (!string.IsNullOrEmpty(utente.Cognome))
+                                            {
+                                                <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                    Cognome
+                                                </p>
+                                                <p>@utente.Cognome</p>
+                                            }
+                                        </div>
+                                        <div class="col-6 p-2">
+                                            @if (!string.IsNullOrEmpty(utente.Regione))
+                                            {
+                                                <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                    Regione
+                                                </p>
+                                                <p>@utente.Regione</p>
+                                            }
+                                            @if (!string.IsNullOrEmpty(utente.Provincia))
+                                            {
+                                                <p class="col-form-label text-start fw-semibold sedan-regular py-0">
+                                                    Provincia
+                                                </p>
+                                                <p>@utente.Provincia</p>
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    // Trova tutti i link di navigazione nelle card utente
+    // Gestendo il click sui link di navigazione nelle card utente, impedisce al link di eseguire la navigazione predefinita
+    // Trova quindi la card utente genitore del link cliccato e ne ottiene l'href
+    // Nasconde tutte le sezioni nella card utente corrente
+    // Mostra solo la sezione corrispondente al link cliccato nella card utente
+    document.addEventListener("DOMContentLoaded", function () {
+        var cardLinks = document.querySelectorAll(".userCard navigation a");
+
+        cardLinks.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault(); 
+
+                var card = this.closest(".userCard"); 
+                var target = this.getAttribute("href"); 
+
+                card.querySelectorAll("section").forEach(function (section) {
+                    section.style.display = "none";
+                });
+                card.querySelector(target).style.display = "block";
+            });
+        });
+
+        // Mostra solo la sezione 'one' di default
+        document.querySelectorAll("section[id^='one_']").forEach(function (section) {
+            section.style.display = "block";
+        });
+    });
+</script>
