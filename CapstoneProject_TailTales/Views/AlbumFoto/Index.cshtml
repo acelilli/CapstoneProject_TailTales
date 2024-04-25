@@ -22,8 +22,12 @@
                         <p class="small dark-grey my-1 mt-0">
                             @item.DataRecord da <span class="fw-bold">@item.Utenti.Username</span>
                         </p>
-                        <p class="small  dark-grey my-1 mt-0"><a href="@Url.Action("Edit", "AlbumFoto", new {id = item.IdAlbum})">Modifica</a>
-                                                              <a href="@Url.Action("Delete", "AlbumFoto", new {id = item.IdAlbum})">Cancella</a></p>
+                        @if (userId == item.IdUtente_FK) { 
+                        <p class="small  dark-grey my-1 mt-0">
+                        <a href="@Url.Action("Edit", "AlbumFoto", new {id = item.IdAlbum})">Modifica</a>
+                        <a href="@Url.Action("Delete", "AlbumFoto", new {id = item.IdAlbum})">Cancella</a>
+                            </p>
+                            }
                     </div>
                     <img src="@item.ImgUrl" alt="foto di @item.Utenti" />
                     <p class="my-1 mx-2">@item.Descrizione</p>
