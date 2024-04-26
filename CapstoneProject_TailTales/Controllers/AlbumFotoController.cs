@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Drawing;
+using System.EnterpriseServices;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -18,6 +19,9 @@ namespace CapstoneProject_TailTales.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: AlbumFoto
+        // 1. Ottiene l'id utente loggato dal cookie (se non è loggato restitusice Forbidden)
+        // 2. Cerca tutti gli oggetti AlbumFoto in cui l'id utente corrisponte all'id dell'utente
+        // 3. Se l'utente è nel suo album vedrà le sue foto, altrimenti vedrà le foto dell'utente del quale sta visitando il profilo
         public ActionResult Index(int? id)
         {
             int userId;
@@ -36,6 +40,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AlbumFoto/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,8 +64,12 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AlbumFoto/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // 1. Ottiene l'id dell'utente dal cookie (se non è valido restituisce Forbidden)
+        // 2. Valorizza il campo IdUtente_FK del nuovo oggetto albumFoto con l'id dell'utente loggato
+        // 3. Valorizza il campo DataRecord con la data in cui viene creato il record
+        // 4. Aggiorna l'immagine se fornita
+        // 5. Se ci sono errori, ottiene e mostra nella ViewBag i messaggi di errore
+        // 6. Ritorna la View di AlbumFoto
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -73,7 +82,7 @@ namespace CapstoneProject_TailTales.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
-            albumFoto.IdUtente_FK = userId; // valorizza l'IdUtente_FK con l'id user preso dal cookie
+            albumFoto.IdUtente_FK = userId;
             albumFoto.DataRecord = DateTime.Now;
 
             if (ImgUrl != null && ImgUrl.ContentLength > 0)
@@ -92,10 +101,8 @@ namespace CapstoneProject_TailTales.Controllers
             }
             else
             {
-                // Ottieni gli errori di validazione del modello
                 ViewBag.ModelErrors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
 
-                // Reimposta IdUtente_FK e DataRecord nella ViewBag
                 ViewBag.IdUtente_FK = albumFoto.IdUtente_FK;
                 ViewBag.DataRecord = albumFoto.DataRecord;
             }
@@ -103,6 +110,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AlbumFoto/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -118,6 +126,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AlbumFoto/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdAlbum,IdUtente_FK,DataRecord,ImgUrl,Descrizione")] AlbumFoto albumFoto, HttpPostedFileBase ImgUrl)
@@ -140,6 +149,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AlbumFoto/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -155,6 +165,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AlbumFoto/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

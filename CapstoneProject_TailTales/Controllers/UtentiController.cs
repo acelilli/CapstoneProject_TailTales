@@ -26,14 +26,14 @@ namespace CapstoneProject_TailTales.Controllers
         // GET: Utenti/Details/5
         // Prende come parametro l'id dell'utente
         // Recupera:
-        // 1. I pet associati all'id utente
-        // 2. Richieste in sospeso
+        // 1. I pet associati all'id utente tramite l'id passato come parametro
+        // 2. Richieste in sospeso dell'utente in due passaggi:
         //    2.1 Ricupera gli username degli utenti richiedenti e richiesti passandoli alla Viewbag in due passaggi:
-        //         2.1.1 Seleziona gli id
+        //         2.1.1 Seleziona le richieste in cui l'id dell'utente appare nei campi Richiedente o Richiesto, che hanno stato "In Attesa..."
         //         2.1.2 Cerca l'id corrispondente nella tabella utenti
         // 3. Recupera le amicizie collegate all'utente
         //    3.1 Recupera gli username degli utenti richiedenti e richiesti passandoli alla Viewbag in due passaggi:
-        //        3.1.1 Seleziona gli id
+        //        3.1.1 Seleziona le richieste in cui l'id dell'utente appare nei campi Richiedente o Richiesto
         //        3.1.2 Cerca l'id corrispondente nella tabella utenti
         // 4. Recupera i record di Album foto dell'id utente associato
         // Ritorna: La varie Viewbag + Utente
@@ -48,14 +48,12 @@ namespace CapstoneProject_TailTales.Controllers
             {
                 return HttpNotFound();
             }
-            // Recupera le richieste in sospeso, gli amici dell'utente, e altri dati necessari dal database
+            //Prima istanza dei pet dell'utente, delle sue richieste in sospeso e dei suoi amici
             var userPets = db.Pet.Where(p => p.IdUtente_FK == id).ToList();
             var richiesteInSospeso = db.RichiestaContatto.Where(r => (r.IdUtenteRichiedente == id || r.IdPetRichiesto == id) && r.StatoRichiesta == "In Attesa...").ToList();
             var amiciUtente = db.AmiciziaUtenti.Where(a => a.IdUtenteRichiesto == id || a.IdUtenteRichiedente == id).ToList();
 
-            // Recupera gli username degli utenti richiedenti e richiesti e passali alla ViewBag in due passaggi:
-            // 1. Selezion gli id
-            // 2. Cerca l'id corrispondente nella tabella utenti
+            // Selezione e recupero dei dati degli id  e degli username nelle RichiesteContatto + ricweca dati nella tabella degli utenti
             var idUtentiRichiedenti = richiesteInSospeso.Select(r => r.IdUtenteRichiedente).ToList();
             var idUtentiRichiesti = richiesteInSospeso.Select(r => r.IdUtenteRichiesto).ToList();
 
@@ -63,9 +61,7 @@ namespace CapstoneProject_TailTales.Controllers
             var utentiRichiesti = db.Utenti.Where(u => idUtentiRichiesti.Contains(u.IdUtente)).ToList();
 
 
-            // Recipera gli username degli utenti amici e li passa alla viewbag in due passaggi:
-            // 1. Selezion gli id
-            // 2. Cerca l'id corrispondente nella tabella utenti
+            // Selezione e recupero dei dati degli id  e degli username nelle AmicizieUtenti + riceca dati nella tabella degli utenti
             var idAmicRichiedenti = amiciUtente.Select(au => au.IdUtenteRichiedente).ToList();
             var idAmiciRichiesti = amiciUtente.Select(au => au.IdUtenteRichiesto).ToList();
 
@@ -88,10 +84,10 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: Utenti/Create
-        /// 1. Ottengo le regioni e le province da RegioniProvince
-        /// 2. Nascondo il ruolo di Admin all'elenco di ruoli selezionabili dall'utente
-        /// 3. Inizializza RuoliList con la lista dei ruoli escludento quello di amministratore
-        /// Ritorna la vista
+        // 1. Popolamento delle liste Regione e Provicia accedendo ai metodi del model RegioniProvince
+        // 2. Nascondo il ruolo di Admin all'elenco di ruoli selezionabili dall'utente
+        // 3. Inizializza RuoliList con la lista dei ruoli escludento quello di amministratore
+        // Ritorna la vista
         public ActionResult Create()
         {
             // RegioniProvince
@@ -111,15 +107,10 @@ namespace CapstoneProject_TailTales.Controllers
             return View(utente);
         }
 
-        // POST: Utenti/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        // Sommario della action: 
-        /// 1. Nascondo la password in fase di creazione:
-        ///    1.1 Genera la password hash (se il modello è valido)
-        ///    Parametri: le proprietà di Utenti e il nuovo utenti (inserito dall'utente)
-        /// 2. Check che l'username e la mail inserite non siano già presente nel db (da aggiungere)
-        ///  Ritorna la view
+        // POST: Utenti/Create 
+        // 1. Nascondo la password in fase di creazione:
+        //    1.1 Genera la password hash (se il modello è valido)
+        //  Ritorna la view
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdUtente,IdRuolo_FK,Username,Email,Password,Nome,Cognome,Regione,Provincia,SelectedRuoloId")] Utenti utenti)
@@ -143,14 +134,7 @@ namespace CapstoneProject_TailTales.Controllers
         //// Come parametro prende l'id dell'utente da editare 
         //// 1. Nasconde il ruolo admin per tutti tranne che per gli admin
         //// 2. Popolamento delle liste delle regioni e delle province
-        //// 3. Solo l'utente cui ID corrisponde al cookie può modificare il proprio profilo
-        //// 4. Check che l'username sia unico (da aggiungere)
-        /////
-        ///[ <summary>
-        /// [
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        //// 3. Solo l'utente cui ID corrisponde al cookie, oppure se un utente è admin, si può modificare il profilo
         [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
@@ -170,7 +154,6 @@ namespace CapstoneProject_TailTales.Controllers
                 return HttpNotFound();
             }
 
-            // Se l'utente è un amministratore, può modificare qualsiasi utente
             if (User.IsInRole("Admin"))
             {
                 var ruoli = db.Ruoli.Where(r => r.IdRuolo != 1 && r.Ruolo != "admin").ToList();
@@ -217,8 +200,7 @@ namespace CapstoneProject_TailTales.Controllers
 
 
         // POST: Utenti/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // 1. Se il modello è valido aggiorna il profilo utente facendo di nuovo Hash della password.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdUtente,IdRuolo_FK,Username,Email,Password,Nome,Cognome,Regione,Provincia")] Utenti utenti)
@@ -281,6 +263,12 @@ namespace CapstoneProject_TailTales.Controllers
             return View();
         }
 
+
+        // Login
+        // 1. Cerca l'username dell'utente nella tabella Utenti
+        // 2. Hush della password immessa nell'input per controllare che corrisponda a quella nel database
+        // 3. Se la password corrisponde e l'username esiste nel database crea un cookie con l'id dell'utente, che scadrà dopo 72 ore.
+        // 4. Restituisce la vista di Home Index.
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(Utenti user)
@@ -314,6 +302,8 @@ namespace CapstoneProject_TailTales.Controllers
             }
         }
 
+        // Logout
+        // Alla richiesta di logout, fa scadere il cookie.
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();

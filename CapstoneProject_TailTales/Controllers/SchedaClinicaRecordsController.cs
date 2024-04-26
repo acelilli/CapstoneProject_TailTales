@@ -63,8 +63,6 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: SchedaClinicaRecords/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdRecordSC,IdLibretto_FK,DataVisita,Diagnosi,IdUtente_FK,Veterinario,Prezzo")] SchedaClinicaRecords schedaClinicaRecords)
@@ -111,8 +109,6 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: SchedaClinicaRecords/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         // Ricarica la lista dei veterinari in caso di errore di validazione
         // Return to action alla view del libretto associato
         [HttpPost]
@@ -136,9 +132,6 @@ namespace CapstoneProject_TailTales.Controllers
                                        .ToList();
             ViewData["VeterinariList"] = new SelectList(veterinari, "Value", "Text");
 
-            // Non mi servono nè la lista dei libretti nè quella degli utenti
-            //ViewBag.IdLibretto_FK = new SelectList(db.Libretto, "IdLibretto", "NumMicrochip", schedaClinicaRecords.IdLibretto_FK);
-            //ViewBag.IdUtente_FK = new SelectList(db.Utenti, "IdUtente", "Username", schedaClinicaRecords.IdUtente_FK);
             return View(schedaClinicaRecords);
         }
 

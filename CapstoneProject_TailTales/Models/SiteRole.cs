@@ -36,14 +36,14 @@ namespace CapstoneProject_TailTales.Models
         }
 
         /// Metodo GetRolesForUser 
-        /// 1. Cerca l'utente nel db in base all'username
-        ///   1.1 Ottiene l'ID del RUOLO (IdRuolo_FK) associato all'utente
-        ///   1.2 Cerca il ruolo nella tabella in base al suo id
-        /// Ritorna = un array di stringhe
-        /// Parametro = username
-        /// Per quanto riguarda le autorizzazioni andrò comunque a scrivere
-        /// [Authorize(Roles = "admin")] nei controllers/actions
-        /// if (User.IsInRole("admin"))
+        // 1. Cerca l'utente nel db in base all'username
+        //   1.1 Ottiene l'ID del RUOLO (IdRuolo_FK) associato all'utente
+        //   1.2 Cerca il ruolo nella tabella in base al suo id
+        // Ritorna = un array di stringhe
+        // Parametro = username
+        // Per quanto riguarda le autorizzazioni andrò comunque a scrivere
+        // [Authorize(Roles = "admin")] nei controllers/actions
+        // if (User.IsInRole("admin"))
         public override string[] GetRolesForUser(string username)
         {
             using (var dbContext = new ModelDbContext())

@@ -65,8 +65,6 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: VacciniRecords/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdRecordVaccini,IdLibretto_FK,VaccinoRabbia,DataPrevista,DataEffettuato,VaccinoNLotto,Scadenza,Richiamo,IdUtente_FK,Veterinario,Prezzo,PuntoInoculo")] VacciniRecords vacciniRecords)
@@ -97,7 +95,6 @@ namespace CapstoneProject_TailTales.Controllers
             {
                 return HttpNotFound();
             }
-            // Carica la lista dei veterinari per il dropdown
             var veterinari = db.Utenti.Where(u => u.IdRuolo_FK == 3)
                                        .Select(u => new SelectListItem
                                        {
@@ -112,8 +109,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: VacciniRecords/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Ricarica la lista dei veterinari in caso di errore di validazione
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdRecordVaccini,IdLibretto_FK,VaccinoRabbia,DataPrevista,DataEffettuato,VaccinoNLotto,Scadenza,Richiamo,IdUtente_FK,Veterinario,Prezzo,PuntoInoculo")] VacciniRecords vacciniRecords)
@@ -124,7 +120,6 @@ namespace CapstoneProject_TailTales.Controllers
                 db.SaveChanges();
                 RedirectToAction("Details", "Libretto", new { id = vacciniRecords.IdLibretto_FK });
             }
-            // Ricarica la lista dei veterinari nel caso di errore di validazione
             var veterinari = db.Utenti.Where(u => u.IdRuolo_FK == 3)
                                        .Select(u => new SelectListItem
                                        {

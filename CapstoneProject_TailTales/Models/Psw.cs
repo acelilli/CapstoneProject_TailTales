@@ -9,14 +9,16 @@ namespace CapstoneProject_TailTales.Models
 {
     public class Psw
     {
+        // Metodo per fare Hash (criptare) la password
+        // 1. Calcola l'hash della password
+        // 2. Converte l'array di byte in una stringa esadecimale
+        // Restituisce la stringa passata al builder
         public static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
-                // Calcola l'hash della password
                 byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                // Converti l'array di byte in una stringa esadecimale
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < hashedBytes.Length; i++)
                 {

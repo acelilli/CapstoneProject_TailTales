@@ -44,8 +44,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: Memo/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Azione accessibile tramite Index
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdMemo,IdUtente_FK,DataMemo,Descrizione,Completato")] Memo memo)
@@ -78,8 +77,6 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: Memo/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdMemo,IdUtente_FK,DataMemo,Descrizione,Completato")] Memo memo)
@@ -95,6 +92,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: Memo/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +110,7 @@ namespace CapstoneProject_TailTales.Controllers
         // POST: Memo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Memo memo = db.Memo.Find(id);

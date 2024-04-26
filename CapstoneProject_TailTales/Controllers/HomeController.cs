@@ -17,17 +17,17 @@ namespace CapstoneProject_TailTales.Controllers
         private ModelDbContext db = new ModelDbContext();
         //// INDEX HOME
         /////// FASE 1: Recupero dei pet associati all'utente //////
-        /// 1. Ottengo l'id dell'utente loggato dal cookie
-        /// 2. Verifico se l'utente è validato e:
-        ///    2.1 Se l'utente è validato, tramite il modello MyUserData recupero la lista dei suoi pet, dei libretti associati e dei record dei vaccini e delle schede cliniche 
-        ///    2.2 Se l'utente non è validato, reindirizzo l'utente alla pagina di login
-        /// 3. Se l'utente è validato, torna tutti i dati 
+        // 1. Recupera l'id dell'utente loggato dal cookie
+        // 2. Verifica se l'utente è validato e:
+        //    2.1 Se l'utente è validato, tramite il modello MyUserData recupera la lista dei suoi pet, dei libretti associati e dei record dei vaccini e delle schede cliniche 
+        //    2.2 Se l'utente non è validato, reindirizza l'utente alla pagina di login
+        // 3. Se l'utente è validato, torna tutti i dati 
         ////// FASE 2: Calcolo degli appuntamenti futuri e di quelli passati /////
-        /// 1. Definisco una var today dove viene impostata la data odierna da confrontare con i record all'interno di scheda clinica (data Effettuata) e di vaccini(data previsto)
-        /// 2. I prossimi appuntamenti vengono caricati in apposite liste (prossimiAppuntamenti e passatiAppuntamenti)
-        /// 3. Le liste vengono ordinate a seconda delle date, se sono minori o inferiori rispetto alla data odierna
-        /// 4. Le liste vengono passate tramite ViewData alla pagina
-        /// Non riceve parametri
+        // 1. Definisce una var today dove viene impostata la data odierna da confrontare con i record all'interno di scheda clinica (data Effettuata) e di vaccini(data previsto)
+        // 2. I prossimi appuntamenti vengono caricati in apposite liste (prossimiAppuntamenti e passatiAppuntamenti)
+        // 3. Le liste vengono ordinate a seconda delle date, se sono minori o inferiori rispetto alla data odierna
+        // 4. Le liste vengono passate tramite ViewData alla pagina
+        // Non riceve parametri
         public ActionResult Index()
         {
             int userId;
@@ -250,7 +250,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         //////// Esplora + Ricerca ////////
-        ///        // Definisco un ViewModel che mi raccolga tutti gli utenti e tutti i loro pet
+        //// Definisco un ViewModel che mi raccolga tutti gli utenti e tutti i loro pet
         public class SearchViewModel
         {
             public List<Utenti> Users { get; set; }
@@ -262,16 +262,16 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
          //// GET: EXPLORE
-        /// 1. Recupera l'utente corrente.
-        /// 2. SwitchCase:
-        ///    2.1 Se la regione è disponibile, visualizza gli utenti della stessa regione
-        ///    2.2 Se non ci sono informazioni sulla provicnia or egione, visualizza tutti gli utenti
-        /// 3. Recupera gli amici dell'utente corrente
-        /// 4. Recupera gli oggetti utenti per gli Id utenti degli amici 
-        /// 5. Se l'utente non è loggato ritorna alla Login
-        /// 6. Concatena le liste degli utenti ottenuti in un'unica lista di utenti nearbyUsers.
-        /// 7. Passa la lista degli utenti e dei loro pet alla vista Explore.
-        /// Ritorna la vista Explore
+        // 1. Recupera l'utente corrente.
+        // 2. SwitchCase:
+        //    2.1 Se la regione è disponibile, visualizza gli utenti della stessa regione
+        //    2.2 Se non ci sono informazioni sulla provicnia or egione, visualizza tutti gli utenti
+        // 3. Recupera gli amici dell'utente corrente
+        // 4. Recupera gli oggetti utenti per gli Id utenti degli amici 
+        // 5. Se l'utente non è loggato ritorna alla Login
+        // 6. Concatena le liste degli utenti ottenuti in un'unica lista di utenti nearbyUsers.
+        // 7. Ottenuti questi dati popola le proprietà del ViewModel SearchViewModel corrispondente
+        // Ritorna la vista Explore utilizzando come parametro il ViewModel popolato
         [HttpGet]
         public ActionResult Explore()
         {
@@ -335,21 +335,21 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         ///////// AZIONI DI RICERCA /////////
-        ///
-        /// Recupera l'id dell'utente dal cookie, se è valido cerca l'utente corrispondente dal db
-        /// Cerca gli utenti che corrispondono alla query di ricerca nella stringa query per Username, Nome e Cognome.
-        /// Cerca i pet che corrispondono alla query di ricerca nella stringa query per Nome.
-        /// Passa la lista degli utenti e dei loro pet, e dei pets, alla vista Search utilizzando ViewBag.
-        /// Ritorna alla vista di Search per visualizzare i risultati di ricerca
+        //
+        // 1. Recupera l'id dell'utente dal cookie, se è valido cerca l'utente corrispondente dal db
+        // 2. Cerca gli utenti che corrispondono alla query di ricerca nella stringa query per Username, Nome e Cognome.
+        // 3. Cerca i pet che corrispondono alla query di ricerca nella stringa query per Nome.
+        // 4. Passa la lista degli utenti e dei loro pet, e dei pets, alla vista Search utilizzando ViewBag.
+        // 5. Recupera gli amici dell'utente corrente e gli oggetti utenti corrispindenti agli ID degli amici recuperati
+        // 6. Popola il ViewModel
+        // Ritorna alla vista di Search per visualizzare i risultati di ricerca usando il ViewModel come parametro
         [HttpGet]
         public ActionResult Search(string query)
         {
-            // Recupera l'ID dell'utente dal cookie
             int userId;
             string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
             bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
 
-            // Se l'ID dell'utente nel cookie è valido, cerca l'utente corrispondente nel database
             if (isUserIdValid)
             {
                 var currentUser = db.Utenti.FirstOrDefault(u => u.IdUtente == userId);
@@ -357,12 +357,11 @@ namespace CapstoneProject_TailTales.Controllers
                 var users = db.Utenti.Where(u => u.Username.Contains(query) || u.Nome.Contains(query) || u.Cognome.Contains(query)).ToList();
                 var pets = db.Pet.Where(p => p.Nome.Contains(query)).ToList();
                 var myPets = db.Pet.Where(p => p.IdUtente_FK == userId).ToList();
-                // Recupera gli amici dell'utente corrente
+
                 var friendIds = db.AmiciziaUtenti
                                     .Where(a => a.IdUtenteRichiedente == userId || a.IdUtenteRichiesto == userId)
                                     .Select(a => a.IdUtenteRichiedente == userId ? a.IdUtenteRichiesto : a.IdUtenteRichiedente)
                                     .ToList();
-                // Recupera gli oggetti Utenti corrispondenti agli ID degli amici
                 var myFriends = db.Utenti.Where(u => friendIds.Contains(u.IdUtente)).ToList();
 
 

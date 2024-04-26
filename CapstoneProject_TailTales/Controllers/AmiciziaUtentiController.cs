@@ -37,6 +37,9 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AmiciziaUtenti/Create
+        // 1. Otteniamo l'utente loggato tramite il cookie
+        //    1.1 Se non è loggato restituisce Forbidden
+        // 2. Crea una lista di utenti chre esclude l'utente loggato (l'utente non potrà essere amico di sè stesso)
         public ActionResult Create()
         {
             int userId;
@@ -48,10 +51,8 @@ namespace CapstoneProject_TailTales.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
 
-            // Ottieni l'utente loggato
             var loggedInUser = db.Utenti.FirstOrDefault(u => u.IdUtente == userId);
 
-            // Ottieni una lista di utenti escludendo l'utente loggato
             var otherUsers = db.Utenti.Where(u => u.IdUtente != userId).ToList();
 
             ViewBag.IdUtenteRichiedente = loggedInUser.IdUtente;
@@ -61,54 +62,50 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AmiciziaUtenti/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // 1. Verifica che l'Id dell'utente Richiedente è valido (altrimenti torna NotFound)
+        // 2. Ottiene l'id dell'utente dal Cookie (se non è velido restituisce Forbidden)
+        // 3. L'utente dell'id loggato deve essere lo stesso dell'id utente richiedente, altrimenti restituisce BadRequest
+        // 4. Cerca la richiesta di contatto che ha Id Richiesto e Id Richiedente corrispondente e stato "in attesa..."
+        // 5. !! Modifica lo stato della richiesta di contatto in "Completata!"
+        // 6. Crea un nuovo record AmiciziaUtenti nel database prendendo gli Id dai campi della RichiestaContatto corrispondente
+        // 7. Reindirizza alla Home
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int idUtenteRichiedente)
         {
-            // Verifica se l'ID utente richiedente è valido
             var utenteRichiedente = db.Utenti.Find(idUtenteRichiedente);
             if (utenteRichiedente == null)
             {
-                // Ritorna un errore se l'utente richiedente non esiste
                 return HttpNotFound();
             }
 
-            // Ottieni l'ID dell'utente loggato dal cookie
             int userId;
             string userIdCookieValue = Request.Cookies["IDUserCookie"]?.Value;
             bool isUserIdValid = int.TryParse(userIdCookieValue, out userId);
 
-            // Se l'ID utente loggato non è valido, restituisci un errore di autorizzazione
             if (!isUserIdValid)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
-            if (userId == idUtenteRichiedente) //  controllo se sta prendendo lo stesso id
+            if (userId == idUtenteRichiedente)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            // Cerca la richiesta di contatto esistente
             var richiesta = db.RichiestaContatto.FirstOrDefault(r => r.IdUtenteRichiedente == idUtenteRichiedente && r.IdUtenteRichiesto == userId && r.StatoRichiesta == "In attesa...");
             if (richiesta != null)
             {
-                // Aggiorna lo stato della richiesta
                 richiesta.StatoRichiesta = "Completata!";
 
-                // Crea l'amicizia tra gli utenti
                 var amicizia = new AmiciziaUtenti
                 {
                     IdUtenteRichiedente = richiesta.IdUtenteRichiedente,
                     IdUtenteRichiesto = richiesta.IdUtenteRichiesto,
                 };
 
-                // Aggiungi l'amicizia al contesto e salva le modifiche nel database
                 db.AmiciziaUtenti.Add(amicizia);
                 db.SaveChanges();
             }
 
-            // Reindirizza alla vista di conferma o ad un'altra pagina
             return RedirectToAction("Index", "Home"); 
         }
 
@@ -116,6 +113,7 @@ namespace CapstoneProject_TailTales.Controllers
 
 
         // GET: AmiciziaUtenti/Edit/5
+        [Authorize(Roles ="Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -133,10 +131,9 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AmiciziaUtenti/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "IdAmicizia,IdUtenteRichiedente,IdUtenteRichiesto")] AmiciziaUtenti amiciziaUtenti)
         {
             if (ModelState.IsValid)
@@ -151,6 +148,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AmiciziaUtenti/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +164,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AmiciziaUtenti/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

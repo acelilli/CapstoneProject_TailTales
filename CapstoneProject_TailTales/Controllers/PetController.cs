@@ -22,8 +22,15 @@ namespace CapstoneProject_TailTales.Controllers
         // 1. Verifica se l'utente è autenticato e ne recupera l'ID dal cookie
         //    Se non è autenticato o non ha un id valido allora ritorna 403 Forbidden
         // 2. Controlla se l'utente è un amministratore 
-        //    Se l'utente è amministratore, recupera tutti i pet,
-        //    Altrimenti li filtra per l'ID utente corrente
+        //    2.1 Se l'utente è amministratore, recupera tutti i pet,
+        //    2.2 Altrimenti li filtra per l'ID utente corrente
+        // 3. Crea una lista di pets
+        // 4. Crea una lista di libretti e li aggiunge alla ViewBag
+        // 5. Estrae gli Id dei pets dalla lista e li cerca nella tabella AmiciziaPet, in cui appaiono in IdPetRichiesto o IdPetRichiedente
+        //    5.1 Crea la lista degli Amici dei pet dell'utentee
+        //    5.2 Da questa lista crea altre due liste, una per i pet richiesti e l'altra per i pet richiedenti
+        //    5.3 Da questi id cerca i dati dei pet corrispondenti nella tabella Pet
+        // 6. Passa le liste delle amicizie, dei pet utenti e dei pet richiedenti tramite Viewbag
         [Authorize]
         public ActionResult Index()
         {
@@ -36,9 +43,9 @@ namespace CapstoneProject_TailTales.Controllers
             }
             bool isAdmin = User.IsInRole("admin");
 
-            List<Pet> pets; // o qualsiasi altra logica per ottenere i pet
-            var libretti = db.Libretto.ToList(); // ottieni tutti i libretti
-            ViewBag.Libretti = libretti; // aggiungi i libretti alla ViewBag
+            List<Pet> pets;
+            var libretti = db.Libretto.ToList(); 
+            ViewBag.Libretti = libretti;
 
             if (isAdmin)
             {
@@ -48,17 +55,14 @@ namespace CapstoneProject_TailTales.Controllers
             {
                 pets = db.Pet.Include("Utenti").Where(p => p.IdUtente_FK == userId).ToList();
             }
-            // Estrai gli ID dei pets dalla lista
+            
             var petIds = pets.Select(p => p.IdPet).ToList();
 
-            // Cerca gli ID dei pets nella tabella AmiciziaPet
             var amiciziaPet = db.AmiciziaPet.Where(a => petIds.Contains(a.IdPetRichiedente) || petIds.Contains(a.IdPetRichiesto)).ToList();
 
-            // Estrai gli ID dei pet richiedenti e richiesti
             var idPetRichiedenti = amiciziaPet.Select(a => a.IdPetRichiedente).ToList();
             var idPetRichiesti = amiciziaPet.Select(a => a.IdPetRichiesto).ToList();
 
-            // Ottieni i dati relativi ai pet richiedenti e richiesti dalla tabella Utenti
             var petRichiedenti = db.Pet.Where(p => idPetRichiedenti.Contains(p.IdPet)).ToList();
             var petRichiesti = db.Pet.Where(p => idPetRichiesti.Contains(p.IdPet)).ToList();
 
@@ -102,8 +106,6 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: Pet/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         // 1. Riceve come parametri le proprietà da bindare, l'oggetto Pet e l'immagine profilo
         // 2. Verifica che l'utente sia autenticato e ne recupera l'ID dal cookie
         //    Se non è autenticato o l'id non è valido torna 403 Forbidden
@@ -198,6 +200,9 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: Pet/Edit/5
+        // 1. Verifica se l'utente è autenticato e ne recupera l'ID dal cookie
+        //    1.1 Se non è valido restituisce forbidden
+        // 2. Aggiorna l'immagine se è stata fornita
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -215,7 +220,6 @@ namespace CapstoneProject_TailTales.Controllers
 
             if (ModelState.IsValid)
             {
-                // Aggiorna l'immagine se è stata fornita
                 if (ImgProfilo != null && ImgProfilo.ContentLength > 0)
                 {
                     string nomeFile = Path.GetFileName(ImgProfilo.FileName);

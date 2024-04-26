@@ -37,6 +37,9 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AmiciziaPet/Create
+        // 1. Ottiene l'id dell'utente loggato dal cookie, se non è valido restituisce Forbidden
+        // 2. A partire dall'id dell'utente loggato crea una lista dei suoi pets
+        // 3. A partire dall'id dell'utente loggato crea una lista dei pet degli altri utenti escludendo quelli dell'utente loggato
         public ActionResult Create()
         {
             int userId;
@@ -61,30 +64,29 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AmiciziaPet/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        // 1. Verifica che gli ID dei pet (Richiedente e Richiesto) forniti siano validi
+        // 2. Verifica che i pet esistano nel db -> se non esistono restituisce NotFound
+        // 3. Cerca la richiesta di amicizia tra i pet nel database in cui ci sono entrambi gli Id dei Pets e lo stato è "In Attesa..." -> Se non la trova restituisce NotFound
+        // 4. Aggiorna lo stato della richiesta in "Compeletata"
+        // 5. Crea l'amicizia tra i pet valorizzando i campi degli IdPet con quelli forniti dalla richiesta
+        // 6. Reindirizza alla Home
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int idPetRichiedente, int idPetRichiesto)
         {
-            // Verifica se gli ID dei pet sono validi
             var petRichiedente = db.Pet.Find(idPetRichiedente);
             var petRichiesto = db.Pet.Find(idPetRichiesto);
 
-            // Verifica se i pet esistono nel database
             if (petRichiedente == null || petRichiesto == null || petRichiedente == petRichiesto)
             {
                 return HttpNotFound();
             }
 
-            // Cerca la richiesta di amicizia tra pet nel database dove ci sono i valori di IdPetRichiedente, richiesto e lo stato è "In Attesa..."
             var richiesta = db.RichiestaContatto.FirstOrDefault(r => r.IdPetRichiedente == idPetRichiedente && r.IdPetRichiesto == idPetRichiesto && r.StatoRichiesta == "In Attesa...");
             if (richiesta != null)
             {
-                // Aggiorna lo stato della richiesta
                 richiesta.StatoRichiesta = "Completata!";
 
-                // Crea l'amicizia tra i pets
                 var amiciziaPets = new AmiciziaPet
                 {
                     IdPetRichiedente = richiesta.IdPetRichiedente.Value,
@@ -96,12 +98,12 @@ namespace CapstoneProject_TailTales.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // Se la richiesta non è stata trovata o non è in attesa, restituisci una view vuota o gestisci l'errore come meglio ritieni opportuno
             return HttpNotFound();
         }
 
 
         // GET: AmiciziaPet/Edit/5
+        [Authorize(Roles ="Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -119,8 +121,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: AmiciziaPet/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdAmiciziaPet,IdPetRichiedente,IdPetRichiesto")] AmiciziaPet amiciziaPet)
@@ -137,6 +138,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: AmiciziaPet/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -154,6 +156,7 @@ namespace CapstoneProject_TailTales.Controllers
         // POST: AmiciziaPet/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             AmiciziaPet amiciziaPet = db.AmiciziaPet.Find(id);

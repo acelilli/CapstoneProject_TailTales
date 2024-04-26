@@ -15,6 +15,7 @@ namespace CapstoneProject_TailTales.Controllers
         private ModelDbContext db = new ModelDbContext();
 
         // GET: Libretto
+        [Authorize]
         public ActionResult Index()
         {
             var libretto = db.Libretto.Include(l => l.Pet);
@@ -22,6 +23,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: Libretto/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace CapstoneProject_TailTales.Controllers
 
         // GET: Libretto/Create
         // 1. Se l'utente è admin recupera tutti i Pets dal db (nome degli animali + proprietari) e restituisce la lista
+        [Authorize]
         public ActionResult Create(int idPet_FK)
         {
             int userId;
@@ -62,6 +65,7 @@ namespace CapstoneProject_TailTales.Controllers
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "IdLibretto,IdPet_FK,NumMicrochip,Proprietario,Indirizzo,Provenienza,NumEnci,Sterilizzato")] Libretto libretto)
         {
             if (ModelState.IsValid)
@@ -87,6 +91,7 @@ namespace CapstoneProject_TailTales.Controllers
 
         // GET: Libretto/Edit/5
         // 1. Prende l'id del pet come parametro
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -103,13 +108,12 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // POST: Libretto/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
         // 1. Trova il record corrispondente nel database
         // 2. Si assicura che il record esista nel database e che IdPet_FK non sia stato modificato
-        // 3. Copia i valori modificati nell'oggetto esistente
+        // 3. Salva i valori modificati nell'oggetto esistente
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "IdLibretto,IdPet_FK,NumMicrochip,Proprietario,Indirizzo,Provenienza,NumEnci,Sterilizzato")] Libretto libretto)
         {
             if (ModelState.IsValid)
@@ -118,7 +122,6 @@ namespace CapstoneProject_TailTales.Controllers
 
                 if (existingLibretto != null && existingLibretto.IdPet_FK == libretto.IdPet_FK)
                 {
-                    // Copia i valori modificati nell'oggetto esistente
                     db.Entry(existingLibretto).CurrentValues.SetValues(libretto);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -129,6 +132,7 @@ namespace CapstoneProject_TailTales.Controllers
         }
 
         // GET: Libretto/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -146,6 +150,7 @@ namespace CapstoneProject_TailTales.Controllers
         // POST: Libretto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Libretto libretto = db.Libretto.Find(id);
